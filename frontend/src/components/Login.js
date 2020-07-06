@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const BASE_URL = 'https://COP4331-3.herokuapp.com/';
+const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
 
 function Login()
 {
