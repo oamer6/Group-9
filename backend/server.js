@@ -18,7 +18,7 @@ app.set('port', (process.env.PORT || 5000));
 
 const MongoClient = require('mongodb').MongoClient;
 
-//const url = 'mongodb+srv://RickLeinecker:COP4331Rocks@cluster0-4pisv.mongodb.net/COP4331?retryWrites=true&w=majority';
+//const url = 'mongodb+srv://user:admin@mern.shgwv.mongodb.net/MERN?retryWrites=true&w=majority';
 // Changed for Heroku deployment.
 const url = process.env.MONGODB_URI;
 
