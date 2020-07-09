@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+var crypto = require('crypto');
 
 /////////////////////////////////////////
 // Added for Heroku deployment.
@@ -12,6 +13,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 /////////////////////////////////////////
 // Added for Heroku deployment.
 app.set('port', (process.env.PORT || 5000));
@@ -22,7 +26,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Changed for Heroku deployment.
 const url = process.env.MONGODB_URI;
 
-const client = new MongoClient(url); 
+const client = new MongoClient(url, { useUnifiedTopology: true }); 
 client.connect();
 
 ///////////////////////////////////////////////////
@@ -70,6 +74,44 @@ app.post('/api/login', async (req, res, next) =>
 
   var ret = { id:id, firstName:fn, lastName:ln, error:error};
   res.status(200).json(ret);
+});
+
+app.post("/register", async (req, res) => {
+  try {
+    const { email, password, verifyPassword, userName } = req.body;
+    const db = client.db();
+
+    // validate
+
+    if (email == null || password == null || verifyPassword == null || userName == null)
+      return res.status(400).json({ msg: "Not all fields have been entered." });
+    if (password.length < 5)
+      return res
+        .status(400)
+        .json({ msg: "The password needs to be at least 5 characters long." });
+    if (password !== verifyPassword)
+      return res
+        .status(400)
+        .json({ msg: "Enter the same password twice for verification." });
+
+    const existingUser = await db.collection('Users').findOne({ email: email });
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ msg: "An account with this email already exists." });
+
+    if (!userName) userName = email;
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = {email:email, password:hashedPassword, username:userName};
+
+    const result = db.collection('Users').insertOne(newUser);
+    const savedUser = await db.collection('Users').save(newUser);
+    res.json(savedUser);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 //}
