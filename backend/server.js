@@ -25,7 +25,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Changed for Heroku deployment.
 const url = process.env.MONGODB_URI;
 
-const client = new MongoClient(url, { useUnifiedTopology: true }); 
+const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 
 const nodemailer = require('nodemailer');
@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
 ///////////////////////////////////////////////////
 // For Heroku deployment
-app.get('*', (req, res) => 
+app.get('*', (req, res) =>
 {
   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
 });
@@ -145,8 +145,8 @@ app.post('/reset', function (req, res) {
           } else {
               console.log('Email sent: ' + info.response);
               db.collection('Users').updateOne({email: userData.email}, {
-                  token: currentDateTime, 
-                  
+                  token: currentDateTime,
+
               },  {multi:true},function(err, affected, resp) {
                   return res.status(200).json({
                       success: false,
@@ -204,7 +204,7 @@ app.post('/updatePassword',function(req, res){
       }
   }
   );
- 
+
 })
 
 app.post('/api/displaymessage', async (req, res, next) =>
@@ -220,41 +220,30 @@ app.post('/api/displaymessage', async (req, res, next) =>
 
 app.post('/api/storemessage', async (req, res, next) =>
 {
-  // incoming: login, password
-  // outgoing: id, firstName, lastName, error
+	try {
+    const { message } = req.body;
+    const db = client.db();
 
-  var error = '';
+    if (message == null)
+      return res.status(400).json({ msg: "Error: Message field is empty." });
 
-  const { email, password } = req.body;
+	  const newMessage = {email:user.email, message:message};
 
-  const db = client.db();
-  const results = await db.collection('Users').find({Login:email,Password:password}).toArray();
+		var currentDateTime = new Date();
 
-  var id = -1;
-  var fn = '';
-  var ln = '';
-
-  if( results.length > 0 )
-  {
-    id = results[0].UserId;
-    fn = results[0].FirstName;
-    ln = results[0].LastName;
+    const result = db.collection('Messages').insertOne(newMessage);
+    const savedMessage = await db.collection('Messages').save(newMessage);
+    res.json(savedMessage);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  else
-  {
-    error = 'Invalid user name/password';
-  }
-
-  var ret = { id:id, firstName:fn, lastName:ln, error:error};
-  res.status(200).json(ret);
 });
-
 
 //}
 
 // change dfor Heroku deployment
 //app.listen(5000); // start Node + Express server on port 5000
-app.listen(PORT, () => 
+app.listen(PORT, () =>
 {
   console.log(`Server listening on port ${PORT}.`);
 });
