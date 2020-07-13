@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { Link} from 'react-router-dom';
+
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
 
 function Login()
 {
 
-    var loginName;
+    var email;
     var loginPassword;
 
     const [message,setMessage] = useState('');
@@ -14,8 +16,8 @@ function Login()
     {
         event.preventDefault();
 
-        var js = '{"login":"'
-            + loginName.value
+        var js = '{"email":"'
+            + email.value
             + '","password":"'
             + loginPassword.value +'"}';
 
@@ -26,9 +28,9 @@ function Login()
 
             var res = JSON.parse(await response.text());
 
-            if( res.id <= 0 )
+            if( res.status == 400 )
             {
-                setMessage('User/Password combination incorrect');
+                alert(res.msg);
             }
             else
             {
@@ -36,7 +38,7 @@ function Login()
                 localStorage.setItem('user_data', JSON.stringify(user));
 
                 setMessage('');
-                window.location.href = '/cards';
+                window.location.href = '/login';
             }
         }
         catch(e)
@@ -49,10 +51,11 @@ function Login()
     return(
         <div id="loginDiv">
             <form onSubmit={doLogin}>
-	        <span id="inner-title">PLEASE LOG IN</span><br />
-	        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c}  /><br />
+	        <span id="inner-title">LOG IN</span><br />
+	        <input type="email" id="email" placeholder="Username/Email" ref={(c) => email = c}  /><br />
 	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
-            <input type="submit" id="loginButton" class="buttons" value = "Do It" onClick={doLogin} />
+            <input type="submit" id="loginButton" class="buttons" value = "Log in" onClick={doLogin} />
+            <Link to="/reset">Forgot password?</Link>
             </form>
 	        <span id="loginResult">{message}</span>
         </div>
