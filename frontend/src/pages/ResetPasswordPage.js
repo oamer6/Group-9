@@ -1,16 +1,16 @@
 import React from 'react';
+
 import PageTitle from '../components/PageTitle';
-import Login from '../components/Login';
+import ResetPassword from '../components/ResetPassword';
 
-const LoginPage = () =>
+const ResetPasswordPage = () => 
 {
-
     return(
         <div>
             <PageTitle />
-            <Login />
+            <ResetPassword />
         </div>
     );
 };
 
-export default LoginPage;
+export default ResetPasswordPage;
