@@ -26,29 +26,35 @@ class _MorseKeyState extends State<MorseKey>{
               padding: EdgeInsets.fromLTRB(15.0, 5.0, 0.0, 0.0),
               child: Text('A .-\nB -...\nC -.-.\nD -..\nE .\n'
                   'F ..-.\nG --.\nH ....\nI ..\nJ .---\nK -.-\n'
-                  'L .-..\nM --\nN -.\nO ---\nP .--.\n'
-                  'Q --.-\nR .-.\nS ...\nT -\nU ..-\n'
+                  'L .-..\nM --\nN -.\nO ---\n',
+                  style: TextStyle(
+                      color: Colors.deepOrange,
+                      fontSize: 24.7, fontWeight: FontWeight.bold)),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(100.0, 5.0, 0.0, 0.0),
+              child: Text('P .--.\nQ --.-\nR .-.\nS ...\nT -\nU ..-\n'
                   'V ...-\nW .--\nX -..-\nY -.--\nZ --..',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 20.0, fontWeight: FontWeight.bold)),
+                      fontSize: 24.7, fontWeight: FontWeight.bold)),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(120.0, 5.0, 0.0, 0.0),
+              padding: EdgeInsets.fromLTRB(205.0, 5.0, 0.0, 0.0),
               child: Text('0 -----\n1.----\n2..---\n3 ...--\n'
                   '4 ....-\n5 .....\n6 -....\n7 --...\n8 ---..\n9 ----.',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 20.0, fontWeight: FontWeight.bold)),
+                      fontSize: 24.7, fontWeight: FontWeight.bold)),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(235.0, 5.0, 0.0, 0.0),
+              padding: EdgeInsets.fromLTRB(315.0, 5.0, 0.0, 0.0),
               child: Text('&  .-...\n\'    .----.\n@ .--.-.\n)   -.--.-\n(   -.--.\n'
                   ':   ---...\n,   --..--\n=  -...-\n!   -.-.--\n.   .-.-.-\n'
                   '-   -....-\n+  .-.-.\n"   .-..-.\n?  ..--..\n/  -..-.',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 20.0, fontWeight: FontWeight.bold)),
+                      fontSize: 24.7, fontWeight: FontWeight.bold)),
             ),
     ]
     )
