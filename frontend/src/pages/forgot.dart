@@ -70,7 +70,7 @@ class _ForgotState extends State<Forgot> {
                           onTap: () {},
                           child: Center(
                             child: Text(
-                              'Send Instructions to My Email',
+                              'Send Reset Link to My Email',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

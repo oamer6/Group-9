@@ -104,6 +104,27 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            // THIS ROW IS FOR DEBUG ONLY
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(width: 5.0),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/translation');
+                  },
+                  child: Text(
+                    'DEBUG ONLY: Translation Page',
+                    style: TextStyle(
+                        color: Colors.deepOrange,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 5.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
