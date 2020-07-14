@@ -38,46 +38,6 @@ class _TranslationState extends State<Translation> {
                 SizedBox(width: 5.0),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/key');
-                  },
-                  child: Text(
-                    'DEBUG ONLY: Go to Morse Key',
-                    style: TextStyle(
-                        color: Colors.deepOrange,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15.0),
-            Row(
-              children: <Widget>[
-                SizedBox(width: 5.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/inbox');
-                  },
-                  child: Text(
-                    'My Inbox',
-                    style: TextStyle(
-                        color: Colors.deepOrange,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15.0),
-            Row(
-              children: <Widget>[
-                SizedBox(width: 5.0),
-                InkWell(
-                  onTap: () {
                     Navigator.of(context).pushNamed('/send');
                   },
                   child: Text(

@@ -112,10 +112,10 @@ class _HomeState extends State<Home> {
                 SizedBox(width: 5.0),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/translation');
+                    Navigator.of(context).pushNamed('/menu');
                   },
                   child: Text(
-                    'DEBUG ONLY: Translation Page',
+                    'DEBUG ONLY: Go to Menu Page',
                     style: TextStyle(
                         color: Colors.deepOrange,
                         fontFamily: 'Montserrat',
