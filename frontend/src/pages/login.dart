@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Translation extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _TranslationState createState() => _TranslationState();
+  _LoginState createState() => _LoginState();
 }
 
-class _TranslationState extends State<Translation> {
+class _LoginState extends State<Login> {
 
   int counter = 0;
 
   void getData() {
-
-    // simulate network request for username
-    Future.delayed(Duration(seconds: 3),() {
-      print('yoshi');
-    });
+    //API
   }
 
   @override
@@ -29,18 +25,18 @@ class _TranslationState extends State<Translation> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
-        title: Text('Translate a Message'),
+        title: Text('Login'),
         centerTitle: true,
         elevation: 0,
       ),
       body: RaisedButton(
-              onPressed: () {
-                setState((){
-                  counter += 1;
-                });
-              },
+        onPressed: () {
+          setState((){
+            counter += 1;
+          });
+        },
         child: Text('counter is $counter'),
-            ),
+      ),
     );
   }
 }

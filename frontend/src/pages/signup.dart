@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _HomeState createState() => new _HomeState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _HomeState extends State<Home> {
+class _SignUpState extends State<SignUp> {
+
+  void getData() {
+    //API
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +30,14 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                    child: Text('My',
+                    child: Text('Sign',
                         style: TextStyle(
                             color: Colors.deepOrange,
                             fontSize: 80.0, fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
-                    child: Text('Morse',
+                    child: Text('Up',
                         style: TextStyle(
                             color: Colors.deepOrange,
                             fontSize: 80.0, fontWeight: FontWeight.bold)),
@@ -61,7 +71,8 @@ class _HomeState extends State<Home> {
                               borderSide: BorderSide(color: Colors.deepOrange))),
                       obscureText: true,
                     ),
-                    SizedBox(height: 15.0),
+                    SizedBox(height: 5.0),
+                    SizedBox(height: 40.0),
                     Container(
                       height: 40.0,
                       child: Material(
@@ -72,7 +83,7 @@ class _HomeState extends State<Home> {
                           onTap: () {},
                           child: Center(
                             child: Text(
-                              'Login',
+                              'Sign Me Up',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -91,30 +102,10 @@ class _HomeState extends State<Home> {
                 SizedBox(width: 5.0),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/forgot');
+                    Navigator.pushNamed(context, '/home');
                   },
                   child: Text(
-                    'Forgot My Password',
-                    style: TextStyle(
-                        color: Colors.deepOrange,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 5.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(width: 5.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/signup');
-                  },
-                  child: Text(
-                    'Sign Up',
+                    'Changed your mind? Go back to home page.',
                     style: TextStyle(
                         color: Colors.deepOrange,
                         fontFamily: 'Montserrat',
