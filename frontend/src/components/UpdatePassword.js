@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
 
+// reference to consider: https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
 // UI for the update password link
-function UpdatePassword
+function UpdatePassword()
 {
     var loginName;
     var loginPassword;
