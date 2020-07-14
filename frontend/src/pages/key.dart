@@ -43,7 +43,9 @@ class _MorseKeyState extends State<MorseKey>{
             ),
             Container(
               padding: EdgeInsets.fromLTRB(235.0, 5.0, 0.0, 0.0),
-              child: Text('& .-...\n\'   .----.\n',
+              child: Text('&  .-...\n\'    .----.\n@ .--.-.\n)   -.--.-\n(   -.--.\n'
+                  ':   ---...\n,   --..--\n=  -...-\n!   -.-.--\n.   .-.-.-\n'
+                  '-   -....-\n+  .-.-.\n"   .-..-.\n?  ..--..\n/  -..-.',
                   style: TextStyle(
                       color: Colors.deepOrange,
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
