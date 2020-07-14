@@ -41,7 +41,7 @@ class _SendState extends State<Send> {
                           children: <Widget>[
                             TextField(
                               decoration: InputDecoration(
-                                  labelText: 'Email of Recipient',
+                                  labelText: 'User Name of Recipient',
                                   labelStyle: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold,

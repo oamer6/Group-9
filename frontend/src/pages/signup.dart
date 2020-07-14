@@ -59,6 +59,16 @@ class _SignUpState extends State<SignUp> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.deepOrange))),
                     ),
+                    TextField(
+                      decoration: InputDecoration(
+                          labelText: 'User Name',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.deepOrange))),
+                    ),
                     SizedBox(height: 20.0),
                     TextField(
                       decoration: InputDecoration(
@@ -70,6 +80,16 @@ class _SignUpState extends State<SignUp> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.deepOrange))),
                       obscureText: true,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Confirm Password',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.deepOrange))),
                     ),
                     SizedBox(height: 5.0),
                     SizedBox(height: 40.0),
