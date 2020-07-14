@@ -9,12 +9,14 @@ import 'package:morseapp/pages/forgot.dart';
 import 'package:morseapp/pages/inbox.dart';
 import 'package:morseapp/pages/send.dart';
 import 'package:morseapp/pages/key.dart';
+import 'package:morseapp/pages/menu.dart';
 
 void main() => runApp(MaterialApp(
   initialRoute: '/home',
   routes: {
     '/': (context) => Loading(),
     '/home': (context) => Home(),
+    '/menu': (context) => Menu(),
     '/forgot': (context) => Forgot(),
     '/signup': (context) => SignUp(),
     '/translation': (context) => Translation(),
