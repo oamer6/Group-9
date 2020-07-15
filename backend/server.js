@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const _ = require('lodash');
 
 /////////////////////////////////////////
 // Added for Heroku deployment.
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 
 /////////////////////////////////////////
@@ -25,7 +27,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Changed for Heroku deployment.
 const url = process.env.MONGODB_URI;
 
-const client = new MongoClient(url, { useUnifiedTopology: true });
+const client = new MongoClient(url, { useUnifiedTopology: true }); 
 client.connect();
 
 const nodemailer = require('nodemailer');
@@ -43,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
 ///////////////////////////////////////////////////
 // For Heroku deployment
-app.get('*', (req, res) =>
+app.get('*', (req, res) => 
 {
   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
 });
@@ -82,6 +84,7 @@ app.post("/login", async (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     const { email, password, verifyPassword, userName } = req.body;
+    const token = jwt.sign({email, userName, password}, process.env.JWT_ACC_CREATE);
     const db = client.db();
 
     // validate
@@ -105,9 +108,44 @@ app.post("/register", async (req, res) => {
 
     if (!userName) userName = email;
 
+    db.collection('Users').findOne({ email: req.body.email }, function (error, user) {
+      var transporter = nodemailer.createTransport({
+          // service: 'gmail',//smtp.gmail.com  //in place of service use host...
+
+          service: "gmail",
+          auth: {
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD
+          }
+
+      });
+      var mailOptions = {
+          from: 'morse.code.translate@gmail.com',
+          to: req.body.email,
+          subject: 'Account Activation',
+          html: "<h1>Welcome To Morse code translator! </h1><p>\
+          <h3>Hello "+"</h3>\
+          If You are requested to reset your password then click on below link<br/>\
+          <a href='http://localhost:5000/account-activation/"+token+"'>Click On This Link</a>\
+          </p>"
+      };
+      transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+              console.log(error);
+          } else {
+             res.status(200).json({
+              success: true
+              //insertedId: result.insertedId,
+              //matchedCount: result.matchedCount
+            });
+
+          }
+      });
+  })
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = {email:email, password:hashedPassword, username:userName};
+    const newUser = {email:email, password:hashedPassword, username:userName, token: token};
 
     const result = db.collection('Users').insertOne(newUser);
     const savedUser = await db.collection('Users').save(newUser);
@@ -117,95 +155,73 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post('/reset', function (req, res) {
+app.post('/reset', async (req, res, next) => {
   const db = client.db();
-  db.collection('Users').findOne({ email: req.body.email }, function (error, userData) {
+  db.collection('Users').findOne({ email: req.body.email }, function (error, user) {
       var transporter = nodemailer.createTransport({
+          // service: 'gmail',//smtp.gmail.com  //in place of service use host...
+
           service: "gmail",
           auth: {
               user: process.env.EMAIL,
               pass: process.env.PASSWORD
           }
+
       });
-      var currentDateTime = new Date();
+      const token = jwt.sign({_id: user._id }, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
       var mailOptions = {
           from: 'morse.code.translate@gmail.com',
           to: req.body.email,
           subject: 'Password Reset',
-          html: "<h1>Reset your password </h1><p>\
-          <h3>Hello</h3>\
-          Click on the link below to change your password.<br/>\
-          <a href='http://localhost:5000/change-password/"+currentDateTime+"+++"+userData.email+"'>Click On This Link</a>\
+          // text: 'That was easy!',
+          html: "<h1>Welcome To Morse code translator! </h1><p>\
+          <h3>Hello "+user.userName+"</h3>\
+          If You are requested to reset your password then click on below link<br/>\
+          <a href='http://localhost:5000/change-password/"+token+"'>Click On This Link</a>\
           </p>"
       };
-
       transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
               console.log(error);
           } else {
               console.log('Email sent: ' + info.response);
-              db.collection('Users').updateOne({email: userData.email}, {
-                  token: currentDateTime,
+              console.log(user._id);
+              console.log(token);
+              var result = db.collection('Users').updateOne({ _id: user._id }, {$set: {token:token}});
 
-              },  {multi:true},function(err, affected, resp) {
-                  return res.status(200).json({
-                      success: false,
-                      msg: info.response,
-                      userlist: resp
-                  });
-              })
+             res.status(200).json({
+              success: true
+              //insertedId: result.insertedId,
+              //matchedCount: result.matchedCount
+            });
+
           }
       });
   })
 });
 
-app.post('/updatePassword',function(req, res){
-  db.collection('Users').findOne({ email: req.body.email }, function (errorFind, userData) {
-      if(userData.token==req.body.linkDate && req.body.password==req.body.confirm_password)
-      {
-          bcrypt.genSalt(10, (errB, salt) => {
-              bcrypt.hash(req.body.password, salt, (err, hash) => {
-                  if (err) throw err;
-                  let newPassword = hash;
-                  let condition = { _id: userData._id };
-                  let dataForUpdate = { password: newPassword,updatedDate: new Date() };
-                  db.collection('Users').findOneAndUpdate(condition, dataForUpdate, { new: true }, function (error, updatedUser) {
-                      if (error) {
-                          if (err.name === 'MongoError' && error.code === 11000) {
-                            return res.status(500).json({msg:'Mongo Db Error', error:error.message});
-                          }else{
-                              return res.status(500).json({msg:'Unknown Server Error', error:'Unknow server error when updating User'});
-                          }
-                      }
-                      else{
-                              if (!updatedUser) {
-                                  return res.status(404).json({
-                                      msg: "User Not Found.",
-                                      success: false
-                                  });
-                              }else{
-                              return res.status(200).json({
-                                  success: true,
-                                  msg: "Your password are Successfully Updated",
-                                  updatedData: updatedUser
-                              });
-                          }
-                      }
-                  });
-              });
-          });
+app.post("/updatePassword", async (req, res, next) => {
+  const db = client.db();
+  const {token, newPass} = req.body;
+  const salt =  await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(newPass, salt);
+  if (token) {
+    db.collection('Users').findOne({token: token}, (err, user) => {
+      if (err || !user) {
+        return res.status(400).json({error: "user w this token doesnt exist."});
+      } else {
+        var result = db.collection('Users').updateOne({_id: user._id}, {$set: {password: hashedPassword}});
+        res.status(200).json({
+          success: true
+          //insertedId: result.insertedId,
+          //matchedCount: result.matchedCount
+        });
       }
-      if (errorFind)
-      {
-              return res.status(401).json({
-              msg: "Something Went Wrong",
-              success: false
-          });
-      }
-  }
-  );
-
-})
+    })
+  } else {
+    return res.status(401).json({error: "Auth. Error"});
+    }
+});
 
 app.post('/api/displaymessage', async (req, res, next) =>
 {
@@ -220,30 +236,41 @@ app.post('/api/displaymessage', async (req, res, next) =>
 
 app.post('/api/storemessage', async (req, res, next) =>
 {
-	try {
-    const { message } = req.body;
-    const db = client.db();
+  // incoming: login, password
+  // outgoing: id, firstName, lastName, error
 
-    if (message == null)
-      return res.status(400).json({ msg: "Error: Message field is empty." });
+  var error = '';
 
-	  const newMessage = {email:user.email, message:message};
+  const { email, password } = req.body;
 
-		var currentDateTime = new Date();
+  const db = client.db();
+  const results = await db.collection('Users').find({Login:email,Password:password}).toArray();
 
-    const result = db.collection('Messages').insertOne(newMessage);
-    const savedMessage = await db.collection('Messages').save(newMessage);
-    res.json(savedMessage);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  var id = -1;
+  var fn = '';
+  var ln = '';
+
+  if( results.length > 0 )
+  {
+    id = results[0].UserId;
+    fn = results[0].FirstName;
+    ln = results[0].LastName;
   }
+  else
+  {
+    error = 'Invalid user name/password';
+  }
+
+  var ret = { id:id, firstName:fn, lastName:ln, error:error};
+  res.status(200).json(ret);
 });
+
 
 //}
 
 // change dfor Heroku deployment
 //app.listen(5000); // start Node + Express server on port 5000
-app.listen(PORT, () =>
+app.listen(PORT, () => 
 {
   console.log(`Server listening on port ${PORT}.`);
 });
