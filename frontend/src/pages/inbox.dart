@@ -34,7 +34,8 @@ class _InboxState extends State<Inbox>{
   }
   Widget _itemBuilder(BuildContext context, int index) {
     return Container(
-        height: 40.0,
+      // Jared, when implementing this, you might want to scale the height so that all the text is displayed, or we can limit the characters on the front end
+        height: 50.0,
         child: Material(
           color: Colors.grey[200],
           elevation: 7.0,
