@@ -39,7 +39,6 @@ class _MenuState extends State<Menu> {
             Container(
               height: 40.0,
               child: Material(
-                borderRadius: BorderRadius.circular(20.0),
                 color: Colors.deepOrange,
                 elevation: 7.0,
                 child: GestureDetector(
@@ -62,7 +61,6 @@ class _MenuState extends State<Menu> {
             Container(
               height: 40.0,
               child: Material(
-                borderRadius: BorderRadius.circular(20.0),
                 color: Colors.deepOrange,
                 elevation: 7.0,
                 child: GestureDetector(
@@ -85,7 +83,6 @@ class _MenuState extends State<Menu> {
             Container(
               height: 40.0,
               child: Material(
-                borderRadius: BorderRadius.circular(20.0),
                 color: Colors.deepOrange,
                 elevation: 7.0,
                 child: GestureDetector(

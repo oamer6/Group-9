@@ -27,60 +27,32 @@ class _InboxState extends State<Inbox>{
       body: Center(
         child: ListView.builder(
           itemBuilder: _itemBuilder,
-          itemCount: 5,
+          itemCount: 25,
         ),
       ),
     );
   }
   Widget _itemBuilder(BuildContext context, int index) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Sender $index'),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: OutlineButton(
-                        onPressed: () => print('English Message'),
-                        // Jared, this needs to display message on press
-                        child: Text('English',
-                        style: TextStyle(
-                            color: Colors.deepOrange,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat'),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                      ),
-                    ),
-                    OutlineButton(
-                      color: Colors.deepOrange,
-                      onPressed: () => print('Morse Message'),
-                      // Jared, this needs to display message on press
-                      child: Text('Morse',
-                        style: TextStyle(
-                            color: Colors.deepOrange,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat'),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                    ),
-                  ],
-                )
-              ],
+    return Container(
+        height: 40.0,
+        child: Material(
+          color: Colors.grey[200],
+          elevation: 7.0,
+          child: GestureDetector(
+            onTap: () {
+              print("Translate Morse message to English and display");
+            },
+            child: Center(
+              child: Text(
+                'From Sender $index: THIS WILL BE MORSE',
+                style: TextStyle(
+                    color: Colors.deepOrangeAccent,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat'),
+              ),
             ),
           ),
-        ],
-      ),
-    );
+        ),
+      );
   }
 }

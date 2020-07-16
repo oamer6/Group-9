@@ -38,10 +38,10 @@ class _TranslationState extends State<Translation> {
                 SizedBox(width: 5.0),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/send');
+                    Navigator.of(context).pushNamed('/display');
                   },
                   child: Text(
-                    'DEBUG ONLY: Go to Send Page',
+                    'DEBUG ONLY: Go to Display Page',
                     style: TextStyle(
                         color: Colors.deepOrange,
                         fontFamily: 'Montserrat',
