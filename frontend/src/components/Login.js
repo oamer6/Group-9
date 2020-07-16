@@ -28,9 +28,13 @@ function Login()
 
             var res = JSON.parse(await response.text());
 
-            if( res.status == 400 )
+            if(res.error)
             {
-                alert(res.msg);
+                setMessage(res.error);
+            }
+            else if (res.status == 400)
+            {
+                setMessage(res.data);
             }
             else
             {
@@ -38,6 +42,7 @@ function Login()
                 localStorage.setItem('user_data', JSON.stringify(user));
 
                 setMessage('');
+                // change later to morsecode UI
                 window.location.href = '/login';
             }
         }
@@ -52,7 +57,7 @@ function Login()
         <div id="loginDiv">
             <form onSubmit={doLogin}>
 	        <span id="inner-title">LOG IN</span><br />
-	        <input type="email" id="email" placeholder="Username/Email" ref={(c) => email = c}  /><br />
+	        <input type="email" id="email" placeholder="Email" ref={(c) => email = c}  /><br />
 	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
             <input type="submit" id="loginButton" class="buttons" value = "Log in" onClick={doLogin} />
             <Link to="/reset">Forgot password?</Link>
