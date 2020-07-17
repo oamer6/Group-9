@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
@@ -10,13 +8,13 @@ function App() {
   return (
     <Router >      
       <Switch>        
-        <Route path="/" exact>          
+        <Route path="/user" exact>          
         <LoginPage />        
         </Route>        
-        <Route path="/reset" exact>          
+        <Route path="/password" exact>          
         <ResetPasswordPage />        
         </Route>        
-        <Redirect to="/" />      
+        <Redirect to="/user" />      
         </Switch>      
     </Router>
   );
