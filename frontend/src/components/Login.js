@@ -23,7 +23,7 @@ function Login()
 
         try
         {    
-            const response = await fetch(BASE_URL + 'api/login',
+            const response = await fetch(BASE_URL + '/login',
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var res = JSON.parse(await response.text());
@@ -43,7 +43,7 @@ function Login()
 
                 setMessage('');
                 // change later to morsecode UI
-                window.location.href = '/login';
+                window.location.href = '/user';
             }
         }
         catch(e)
@@ -60,7 +60,7 @@ function Login()
 	        <input type="email" id="email" placeholder="Email" ref={(c) => email = c}  /><br />
 	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
             <input type="submit" id="loginButton" class="buttons" value = "Log in" onClick={doLogin} />
-            <Link to="/reset">Forgot password?</Link>
+            <Link to="/password">Forgot password?</Link>
             </form>
 	        <span id="loginResult">{message}</span>
         </div>

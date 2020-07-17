@@ -15,22 +15,19 @@ function ResetPassword()
         var js = '{"email":"' + email.value + '"}"';
         try
         {
-            const response = await fetch(BASE_URL + 'api/reset',
+            const response = await fetch(BASE_URL + '/reset',
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var res = JSON.parse(await response.text());
 
-            if( res.id <= 0 )
+            if(res.error)
             {
                 setMessage('There is no account associated with this email');
             }
             else
             {
-                var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
-                localStorage.setItem('user_data', JSON.stringify(user));
-
-                setMessage('');
-                window.location.href = '/login';
+                setMessage('Check your email');
+                window.location.href = '/user';
             }
         }
         catch (e)
@@ -46,7 +43,7 @@ function ResetPassword()
             <span id="inner-title">Enter the email address that is associated with your account</span><br />
 	        <input type="text" id="email" placeholder="youremail@email.com" ref={(c) => email = c}  /><br />
             <input type="submit" id="resetButton" class="buttons" value = "Send reset password link" onClick={doReset} />
-            <Link to="/login">Cancel</Link>
+            <Link to="/user">Cancel</Link>
             </form>
             <span id="resetResult">{message}</span>
         </div>
