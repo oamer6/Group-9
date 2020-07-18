@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:morseapp/pages/inbox.dart';
 
 class InboxDisplay extends StatefulWidget {
   @override
@@ -7,8 +6,16 @@ class InboxDisplay extends StatefulWidget {
 }
 
 class _InboxDisplayState extends State<InboxDisplay>{
+  Map data = {};
+  String message;
+
   @override
   Widget build(BuildContext context) {
+    print(data);
+    data = ModalRoute.of(context).settings.arguments;
+    message = data.toString();
+    message = message.substring(10 ,message.indexOf('}'));
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -18,7 +25,7 @@ class _InboxDisplayState extends State<InboxDisplay>{
         elevation: 0,
       ),
       body: Center(
-          child: Text('This is the message',
+          child: Text(message,
               // this will have to be updated to include actual value
               style: TextStyle(
                   color: Colors.deepOrange,

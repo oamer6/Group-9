@@ -43,7 +43,9 @@ class _InboxState extends State<Inbox>{
           child: GestureDetector(
             onTap: () {
               print("Translate Morse message to English and display");
-              Navigator.of(context).pushNamed('/inbox_display');
+              Navigator.of(context).pushNamed('/inbox_display', arguments: {
+                'message': this.message
+              });
             },
             child: Center(
               child: Text(
