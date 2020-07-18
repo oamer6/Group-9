@@ -57,6 +57,7 @@ class _TranslationState extends State<Translation> {
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 hintText: 'Type a message'
+                    // make variable
               ),
             ),
             SizedBox(height: 15.0),

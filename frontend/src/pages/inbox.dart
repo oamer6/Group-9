@@ -7,6 +7,7 @@ class Inbox extends StatefulWidget {
 
 class _InboxState extends State<Inbox>{
   int _counter = 0;
+  String message = "Hello Morse enthusiasts!";
 
   void _incrementCounter(){
     setState((){
@@ -42,6 +43,7 @@ class _InboxState extends State<Inbox>{
           child: GestureDetector(
             onTap: () {
               print("Translate Morse message to English and display");
+              Navigator.of(context).pushNamed('/inbox_display');
             },
             child: Center(
               child: Text(
