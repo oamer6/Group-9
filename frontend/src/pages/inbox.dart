@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class Inbox extends StatefulWidget {
   @override
@@ -17,6 +34,7 @@ class _InboxState extends State<Inbox>{
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
@@ -36,7 +54,7 @@ class _InboxState extends State<Inbox>{
   Widget _itemBuilder(BuildContext context, int index) {
     return Container(
       // Jared, when implementing this, you might want to scale the height so that all the text is displayed, or we can limit the characters on the front end
-        height: 50.0,
+      height: SizeConfig.blockSizeVertical *6.5,
         child: Material(
           color: Colors.grey[200],
           elevation: 7.0,

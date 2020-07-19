@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class Home extends StatefulWidget {
   @override
@@ -9,6 +26,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return new Scaffold(
         backgroundColor: Colors.grey[200],
         resizeToAvoidBottomPadding: false,
@@ -49,7 +67,7 @@ class _HomeState extends State<Home> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.deepOrange))),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: SizeConfig.blockSizeVertical *2),
                     TextField(
                       decoration: InputDecoration(
                           labelText: 'Password',
@@ -61,9 +79,9 @@ class _HomeState extends State<Home> {
                               borderSide: BorderSide(color: Colors.deepOrange))),
                       obscureText: true,
                     ),
-                    SizedBox(height: 15.0),
+                    SizedBox(height: SizeConfig.blockSizeVertical *2),
                     Container(
-                      height: 40.0,
+                      height: SizeConfig.blockSizeVertical *6,
                       child: Material(
                         borderRadius: BorderRadius.circular(20.0),
                         color: Colors.deepOrange,
@@ -84,11 +102,11 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 )),
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(width: 5.0),
+                SizedBox(width: SizeConfig.blockSizeVertical *.5),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pushNamed('/forgot');
@@ -105,11 +123,11 @@ class _HomeState extends State<Home> {
               ],
             ),
             // THIS ROW IS FOR DEBUG ONLY
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(width: 5.0),
+                SizedBox(width: SizeConfig.blockSizeVertical *.5),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pushNamed('/menu');
@@ -125,11 +143,11 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            SizedBox(height: 5.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *.5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(width: 5.0),
+                SizedBox(width: SizeConfig.blockSizeVertical *.5),
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, '/signup');

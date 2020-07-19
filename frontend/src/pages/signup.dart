@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class SignUp extends StatefulWidget {
   @override
@@ -19,6 +36,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return new Scaffold(
         backgroundColor: Colors.grey[200],
         resizeToAvoidBottomPadding: false,
@@ -69,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.deepOrange))),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: SizeConfig.blockSizeVertical *2.5),
                     TextField(
                       decoration: InputDecoration(
                           labelText: 'Password',
@@ -91,10 +109,10 @@ class _SignUpState extends State<SignUp> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.deepOrange))),
                     ),
-                    SizedBox(height: 5.0),
-                    SizedBox(height: 40.0),
+                    SizedBox(height: SizeConfig.blockSizeVertical *.2),
+                    SizedBox(height: SizeConfig.blockSizeVertical *2.5),
                     Container(
-                      height: 40.0,
+                      height: SizeConfig.blockSizeVertical *5,
                       child: Material(
                         borderRadius: BorderRadius.circular(20.0),
                         color: Colors.deepOrange,
@@ -115,11 +133,11 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ],
                 )),
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(width: 5.0),
+                SizedBox(width: SizeConfig.blockSizeVertical *.2),
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, '/home');

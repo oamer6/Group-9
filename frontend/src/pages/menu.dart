@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class Menu extends StatefulWidget {
   @override
@@ -9,6 +26,7 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return new Scaffold(
         backgroundColor: Colors.grey[200],
         resizeToAvoidBottomPadding: false,
@@ -35,9 +53,9 @@ class _MenuState extends State<Menu> {
                 ],
               ),
             ),
-            SizedBox(height: 50.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *6.5),
             Container(
-              height: 40.0,
+              height: SizeConfig.blockSizeVertical *6,
               child: Material(
                 color: Colors.deepOrange,
                 elevation: 7.0,
@@ -57,9 +75,9 @@ class _MenuState extends State<Menu> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *2),
             Container(
-              height: 40.0,
+              height: SizeConfig.blockSizeVertical *6,
               child: Material(
                 color: Colors.deepOrange,
                 elevation: 7.0,
@@ -79,9 +97,9 @@ class _MenuState extends State<Menu> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.blockSizeVertical *2),
             Container(
-              height: 40.0,
+              height: SizeConfig.blockSizeVertical *6,
               child: Material(
                 color: Colors.deepOrange,
                 elevation: 7.0,
