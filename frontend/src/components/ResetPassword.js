@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
-
+//const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
+const BASE_URL = 'http://localhost:5000';
 function ResetPassword()
 {
     var email;
@@ -41,8 +41,8 @@ function ResetPassword()
             <form onSubmit={doReset}>
 	        <span id="inner-title">Reset password</span><br />
             <span id="inner-title">Enter the email address that is associated with your account</span><br />
-	        <input type="text" id="email" placeholder="youremail@email.com" ref={(c) => email = c}  /><br />
-            <input type="submit" id="resetButton" class="buttons" value = "Send reset password link" onClick={doReset} />
+	        <input type="text" id="email" placeholder="accountemail@email.com" ref={(c) => email = c}  /><br />
+            <input type="submit" id="resetButton" className="buttons" value = "Send reset password link" onClick={doReset} />
             <Link to="/user">Cancel</Link>
             </form>
             <span id="resetResult">{message}</span>

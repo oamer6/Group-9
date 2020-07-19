@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link} from 'react-router-dom';
 
 
-const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
-
+//const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
+const BASE_URL = 'http://localhost:5000';
 function Login()
 {
 
@@ -32,7 +32,7 @@ function Login()
             {
                 setMessage(res.error);
             }
-            else if (res.status == 400)
+            else if (res.status === 400)
             {
                 setMessage(res.data);
             }
@@ -59,8 +59,8 @@ function Login()
 	        <span id="inner-title">LOG IN</span><br />
 	        <input type="email" id="email" placeholder="Email" ref={(c) => email = c}  /><br />
 	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
-            <input type="submit" id="loginButton" class="buttons" value = "Log in" onClick={doLogin} />
-            <Link to="/password">Forgot password?</Link>
+            <input type="submit" id="loginButton" className="buttons" value = "Log in" onClick={doLogin} />
+            <Link to="/forgot">Forgot password?</Link>
             </form>
 	        <span id="loginResult">{message}</span>
         </div>
