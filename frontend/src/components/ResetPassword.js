@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-//const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
+
 function ResetPassword()
 {
     var email;
