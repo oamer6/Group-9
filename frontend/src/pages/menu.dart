@@ -41,14 +41,14 @@ class _MenuState extends State<Menu> {
                     child: Text('My',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: 80.0, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
                     child: Text('Morse',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: 80.0, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class MorseKey extends StatefulWidget {
   @override
@@ -8,6 +25,7 @@ class MorseKey extends StatefulWidget {
 class _MorseKeyState extends State<MorseKey>{
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -29,7 +47,7 @@ class _MorseKeyState extends State<MorseKey>{
                   'L .-..\nM --\nN -.\nO ---\n',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 24.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(100.0, 5.0, 0.0, 0.0),
@@ -37,7 +55,7 @@ class _MorseKeyState extends State<MorseKey>{
                   'V ...-\nW .--\nX -..-\nY -.--\nZ --..',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 24.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(205.0, 5.0, 0.0, 0.0),
@@ -45,7 +63,7 @@ class _MorseKeyState extends State<MorseKey>{
                   '4 ....-\n5 .....\n6 -....\n7 --...\n8 ---..\n9 ----.',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 24.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(315.0, 5.0, 0.0, 0.0),
@@ -54,7 +72,7 @@ class _MorseKeyState extends State<MorseKey>{
                   '-   -....-\n+  .-.-.\n"   .-..-.\n?  ..--..\n/  -..-.',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: 24.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
             ),
     ]
     )

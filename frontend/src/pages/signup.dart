@@ -51,14 +51,14 @@ class _SignUpState extends State<SignUp> {
                     child: Text('Sign',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: 80.0, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
                     child: Text('Up',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: 80.0, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

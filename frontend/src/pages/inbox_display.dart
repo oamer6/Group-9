@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class InboxDisplay extends StatefulWidget {
   @override
@@ -11,6 +28,7 @@ class _InboxDisplayState extends State<InboxDisplay>{
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     print(data);
     data = ModalRoute.of(context).settings.arguments;
     message = data.toString();
@@ -29,7 +47,7 @@ class _InboxDisplayState extends State<InboxDisplay>{
               // this will have to be updated to include actual value
               style: TextStyle(
                   color: Colors.deepOrange,
-                  fontSize: 22, fontWeight: FontWeight.bold)),
+                  fontSize: SizeConfig.blockSizeVertical *3, fontWeight: FontWeight.bold)),
 
       )
     );

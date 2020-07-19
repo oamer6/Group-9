@@ -64,7 +64,7 @@ class _TranslationState extends State<Translation> {
                         color: Colors.deepOrange,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: SizeConfig.blockSizeVertical *3,
                         decoration: TextDecoration.underline),
                   ),
                 ),
