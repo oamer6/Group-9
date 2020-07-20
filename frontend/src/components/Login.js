@@ -60,7 +60,8 @@ function Login()
 	        <input type="email" id="email" placeholder="Email" ref={(c) => email = c}  /><br />
 	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
             <input type="submit" id="loginButton" className="buttons" value = "Log in" onClick={doLogin} />
-            <Link to="/forgot">Forgot password?</Link>
+            <Link to="/forgot">Forgot password?</Link> <br />
+            <Link to="/signup" className="btn btn-primary">New user? Sign Up</Link>
             </form>
 	        <span id="loginResult">{message}</span>
         </div>
