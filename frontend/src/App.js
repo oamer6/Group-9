@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import MorseKeyPage from './pages/MorseKeyPage';
+import RegisterPage from './pages/RegisterPage';
 
 
 function App() {
@@ -10,11 +12,17 @@ function App() {
       <Switch>        
         <Route path="/user" exact>          
         <LoginPage />        
-        </Route>        
-        <Route path="/password" exact>          
+        </Route>
+        <Route path="/signup" exact>          
+        <RegisterPage />        
+        </Route>         
+        <Route path="/forgot" exact>          
         <ResetPasswordPage />        
-        </Route>        
-        <Redirect to="/user" />      
+        </Route>
+        <Route path="/morsekey" exact>          
+        <MorseKeyPage />        
+        </Route>           
+        <Redirect to="/morsekey" />      
         </Switch>      
     </Router>
   );
