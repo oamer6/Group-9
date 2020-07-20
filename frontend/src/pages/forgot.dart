@@ -28,6 +28,8 @@ class _ForgotState extends State<Forgot> {
     //API
   }
 
+  String $givenEmail;
+
   @override
   void initState(){
     super.initState();
@@ -47,18 +49,18 @@ class _ForgotState extends State<Forgot> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 50.0, 0.0, 0.0),
                     child: Text('Forgot',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *10, fontWeight: FontWeight.bold)),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 150.0, 0.0, 0.0),
                     child: Text('Password',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *10, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -68,24 +70,30 @@ class _ForgotState extends State<Forgot> {
                 child: Column(
                   children: <Widget>[
                     TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.deepOrange))),
-                    ),
-                    SizedBox(height: SizeConfig.blockSizeVertical *2),
-                    Container(
-                      height: SizeConfig.blockSizeVertical *5,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.deepOrange,
-                        elevation: 7.0,
-                        child: GestureDetector(
-                          onTap: () {},
+                      onChanged: (text) {
+                        $givenEmail = text;
+                        },
+                        decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                      color: Colors.grey),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepOrange))),
+                  ),
+                  SizedBox(height: SizeConfig.blockSizeVertical *2),
+                  Container(
+                    height: SizeConfig.blockSizeVertical *5,
+                    child: Material(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.deepOrange,
+                    elevation: 7.0,
+                    child:
+                      GestureDetector(
+                          onTap: () {
+                            print($givenEmail);
+                          },
                           child: Center(
                             child: Text(
                               'Send Reset Link to My Email',

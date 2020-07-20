@@ -47,7 +47,7 @@ class _MorseKeyState extends State<MorseKey>{
                   'L .-..\nM --\nN -.\nO ---\n',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.4, fontWeight: FontWeight.bold)),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(100.0, 5.0, 0.0, 0.0),
@@ -55,24 +55,24 @@ class _MorseKeyState extends State<MorseKey>{
                   'V ...-\nW .--\nX -..-\nY -.--\nZ --..',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.4, fontWeight: FontWeight.bold)),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(205.0, 5.0, 0.0, 0.0),
+              padding: EdgeInsets.fromLTRB(190.0, 5.0, 0.0, 0.0),
               child: Text('0 -----\n1.----\n2..---\n3 ...--\n'
                   '4 ....-\n5 .....\n6 -....\n7 --...\n8 ---..\n9 ----.',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.4, fontWeight: FontWeight.bold)),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(315.0, 5.0, 0.0, 0.0),
+              padding: EdgeInsets.fromLTRB(290.0, 5.0, 0.0, 0.0),
               child: Text('&  .-...\n\'    .----.\n@ .--.-.\n)   -.--.-\n(   -.--.\n'
                   ':   ---...\n,   --..--\n=  -...-\n!   -.-.--\n.   .-.-.-\n'
                   '-   -....-\n+  .-.-.\n"   .-..-.\n?  ..--..\n/  -..-.',
                   style: TextStyle(
                       color: Colors.deepOrange,
-                      fontSize: SizeConfig.blockSizeVertical *3.7, fontWeight: FontWeight.bold)),
+                      fontSize: SizeConfig.blockSizeVertical *3.4, fontWeight: FontWeight.bold)),
             ),
     ]
     )

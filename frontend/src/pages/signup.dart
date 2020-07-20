@@ -47,14 +47,14 @@ class _SignUpState extends State<SignUp> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 50.0, 0.0, 0.0),
                     child: Text('Sign',
                         style: TextStyle(
                             color: Colors.deepOrange,
                             fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 150.0, 0.0, 0.0),
                     child: Text('Up',
                         style: TextStyle(
                             color: Colors.deepOrange,

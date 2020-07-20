@@ -37,14 +37,14 @@ class _MenuState extends State<Menu> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 50.0, 0.0, 0.0),
                     child: Text('My',
                         style: TextStyle(
                             color: Colors.deepOrange,
                             fontSize: SizeConfig.blockSizeVertical *12, fontWeight: FontWeight.bold)),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 150.0, 0.0, 0.0),
                     child: Text('Morse',
                         style: TextStyle(
                             color: Colors.deepOrange,
@@ -54,19 +54,20 @@ class _MenuState extends State<Menu> {
               ),
             ),
             SizedBox(height: SizeConfig.blockSizeVertical *6.5),
-            Container(
-              height: SizeConfig.blockSizeVertical *6,
-              child: Material(
-                color: Colors.deepOrange,
-                elevation: 7.0,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/key');
-                  },
-                  child: Center(
-                    child: Text(
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/key');
+              },
+              child : Container(
+                height: SizeConfig.blockSizeVertical *6,
+                  child: Material(
+                    color: Colors.deepOrange,
+                    elevation: 7.0,
+
+                      child: Center(
+                        child: Text(
                       'International Morse Key',
-                      style: TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Montserrat'),
@@ -76,15 +77,17 @@ class _MenuState extends State<Menu> {
               ),
             ),
             SizedBox(height: SizeConfig.blockSizeVertical *2),
-            Container(
-              height: SizeConfig.blockSizeVertical *6,
-              child: Material(
-                color: Colors.deepOrange,
-                elevation: 7.0,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/translation');
-                  },
+            GestureDetector(
+              onTap: () {
+              Navigator.of(context).pushNamed('/translation');
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical *6,
+                child: Material(
+                  color: Colors.deepOrange,
+                  elevation: 7.0,
+
+
                   child: Center(
                     child: Text(
                       'Translate a Message',
@@ -97,18 +100,19 @@ class _MenuState extends State<Menu> {
                 ),
               ),
             ),
+
             SizedBox(height: SizeConfig.blockSizeVertical *2),
-            Container(
-              height: SizeConfig.blockSizeVertical *6,
-              child: Material(
-                color: Colors.deepOrange,
-                elevation: 7.0,
-                child: GestureDetector(
+            GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/inbox');
+                  Navigator.of(context).pushNamed('/inbox');
                   },
-                  child: Center(
-                    child: Text(
+                child: Container(
+                  height: SizeConfig.blockSizeVertical *6,
+                  child: Material(
+                    color: Colors.deepOrange,
+                    elevation: 7.0,
+                      child: Center(
+                        child: Text(
                       'My Inbox',
                       style: TextStyle(
                           color: Colors.white,
