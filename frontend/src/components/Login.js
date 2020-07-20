@@ -54,16 +54,24 @@ function Login()
     };
 
     return(
-        <div id="loginDiv">
-            <form onSubmit={doLogin}>
-	        <span id="inner-title">LOG IN</span><br />
-	        <input type="email" id="email" placeholder="Email" ref={(c) => email = c}  /><br />
-	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
-            <input type="submit" id="loginButton" className="buttons" value = "Log in" onClick={doLogin} />
-            <Link to="/forgot">Forgot password?</Link> <br />
-            <Link to="/signup" className="btn btn-primary">New user? Sign Up</Link>
+        <div id="loginDiv" className="container">
+            <div className="jumbotron">
+            <h4 id="inner-title">LOG IN</h4><br />
+            <form className="align-center" onSubmit={doLogin}>
+                <div className="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
+                </div>
+                <div className="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
+                </div>
+                <button type="submit" className="btn btn-outline-primary" onClick={doLogin}>Sign in</button>
+                <Link to="/forgot">Forgot password?</Link>
+                <Link to="/signup" className="btn btn-outline-info">New user? Sign Up</Link>
             </form>
 	        <span id="loginResult">{message}</span>
+            </div>
         </div>
     );
 };

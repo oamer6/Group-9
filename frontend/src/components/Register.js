@@ -56,17 +56,40 @@ function Register()
     };
 
     return(
-        <div id="registerDiv">
-            <form onSubmit={doRegister}>
-	        <span id="inner-title">Register</span><br />
-	        <input type="email" id="email" placeholder="Email" ref={(c) => email = c}  /><br />
-	        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
-            <input type="password" id="checkPassword" placeholder="Retype Password" ref={(c) => checkPassword = c} /><br />
-            <input type="text" id="username" placeholder="username" ref={(c) => username = c} /><br />
-            <input type="submit" id="registerButton" className="buttons" value = "Register my account!" onClick={doRegister} />
-            <Link to="/user">Already have an account?</Link>
-            </form>
-	        <span id="registerResult">{message}</span>
+        <div id="registerDiv" className="container">
+            <div className="jumbotron">
+                <h4 id="inner-title">REGISTER YOUR ACCCOUNT</h4><br />
+                <form className="align-center" onSubmit={doRegister}>
+                <div class="form-row">
+                    <div className="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c} required></input>
+                        <div class="invalid-feedback">
+                            Email is missing.
+                        </div>
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label for="username">Username</label>
+                        <input type="text" className="form-control" id="username" placeholder="username" ref={(c) => username = c}></input>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
+                </div>
+                <div className="form-group">
+                    <label for="checkPassword"> Retype Password</label>
+                    <input type="password" className="form-control" id="checkPassword" placeholder="retype your super secret password" ref={(c) => checkPassword = c}></input>
+                </div>
+               
+                <div className="form-group-row">
+                    <button type="submit" className="btn btn-outline-warning" onClick={doRegister}>Register my account!</button>
+                    <Link to="/user" className="text-right">Already have an account?</Link>
+                </div>
+                </form>
+                <span id="registerResult">{message}</span>
+            </div>
         </div>
     );
 };
