@@ -293,7 +293,7 @@ app.post('/api/storemessage', async (req, res, next) =>
 		morseMap.set('8', '---..');
 		morseMap.set('9', '----.');
 		morseMap.set('&', '.-...');
-		morseMap.set(''', '.----.');
+		morseMap.set('\'', '.----.');
 		morseMap.set('@', '.--.-.');
 		morseMap.set(')', '-.--.-');
 		morseMap.set('(', '-.--.');
