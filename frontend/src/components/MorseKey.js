@@ -1,11 +1,14 @@
 import React from 'react';
+import '../App.css';    // custom css stylesheet
 
 function MorseKey ()
 {
     return (
-        <div className="jumbotron jumbotron-fluid">
-            <div className="container">
+    <div className="container">
+        <div className="jumbotron">
+            
                 <h1 className="display-4">International Morse Key</h1>
+                <hr />
                 <div class="row">
                     <div class="col-sm-6">
                        <h4 className="text-lg font-weight-bold">Letters</h4>

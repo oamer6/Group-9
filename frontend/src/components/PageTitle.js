@@ -6,7 +6,7 @@ function PageTitle()
     return(
         <nav className="navbar navbar-expand-lg navbar-warning bg-warning">
             <h1>Morse Code Translator</h1>
-            <div className="align-self-end ml-auto">
+            <div className="align-self-end ml-auto align-self-center">
             <Link to="/morsekey" className="btn btn-outline-alert font-weight-bold">Home</Link>
             <Link to="/user" className="btn btn-outline-alert font-weight-bold">Login</Link>
             <Link to="/signup" className="btn btn-outline-alert font-weight-bold">Sign up</Link>

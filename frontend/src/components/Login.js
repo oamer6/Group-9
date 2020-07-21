@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import '../App.css';    // custom css stylesheet
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
 
 function Login()
 {
-
     var email;
     var loginPassword;
 
@@ -15,6 +14,12 @@ function Login()
     const doLogin = async event => 
     {
         event.preventDefault();
+
+        if (email.value === '') {
+            setMessage("Please enter your email address");
+        } else if (loginPassword.value === '') {
+            setMessage("Please enter your password");
+        }
 
         var js = '{"email":"'
             + email.value
@@ -25,6 +30,8 @@ function Login()
         {    
             const response = await fetch(BASE_URL + '/login',
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+            alert(response);
 
             var res = JSON.parse(await response.text());
 
@@ -56,21 +63,23 @@ function Login()
     return(
         <div id="loginDiv" className="container">
             <div className="jumbotron">
-            <h4 id="inner-title">LOG IN</h4><br />
-            <form className="align-center" onSubmit={doLogin}>
-                <div className="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
-                </div>
-                <div className="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
-                </div>
-                <button type="submit" className="btn btn-outline-primary" onClick={doLogin}>Sign in</button>
-                <Link to="/forgot">Forgot password?</Link>
-                <Link to="/signup" className="btn btn-outline-info">New user? Sign Up</Link>
-            </form>
-	        <span id="loginResult">{message}</span>
+                <h4 id="inner-title">LOG IN</h4>
+                <hr />
+                <form className="align-center" onSubmit={doLogin}>
+                    <div className="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
+                    </div>
+                    <div className="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
+                    </div>
+                    <button type="submit" className="btn btn-outline-primary" onClick={doLogin}>Sign in</button>
+                    <Link to="/forgot" id="textAfterButton">Forgot password?</Link>
+                    <br />
+                    <Link to="/signup" className="btn btn-outline-info my0">New user? Sign Up</Link>
+                </form>
+                <p id="loginResult">{message}</p>
             </div>
         </div>
     );
