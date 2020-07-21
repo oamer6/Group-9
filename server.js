@@ -223,7 +223,7 @@ app.post("/updatePassword", async (req, res, next) => {
     }
 });
 
-app.post('/api/displaymessage', async (req, res, next) =>
+app.post('/displaymessage', async (req, res, next) =>
 {
 	try {
 		const { userName } = req.body;
@@ -242,7 +242,7 @@ app.post('/api/displaymessage', async (req, res, next) =>
 	}
 });
 
-app.post('/api/storemessage', async (req, res, next) =>
+app.post('/storemessage', async (req, res, next) =>
 {
 	try {
 		const { message, userName } = req.body;
@@ -321,7 +321,7 @@ app.post('/api/storemessage', async (req, res, next) =>
 	}
 });
 
-app.post('/api/sendmessage', async (req, res, next) =>
+app.post('/sendmessage', async (req, res, next) =>
 {
 	try {
 		const { message, morseMessage, sender, receiver } = req.body;
