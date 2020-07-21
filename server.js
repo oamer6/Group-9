@@ -126,7 +126,7 @@ app.post("/register", async (req, res) => {
           html: "<h1>Welcome To Morse code translator! </h1><p>\
           <h3>Hello "+"</h3>\
           If You are requested to reset your password then click on below link<br/>\
-          <a href='http://localhost:5000/account-activation/"+token+"'>Click On This Link</a>\
+          <a href='https://mern-morse-code-translator.herokuapp.com/account-activation/"+token+"'>Click On This Link</a>\
           </p>"
       };
       transporter.sendMail(mailOptions, function (error, info) {
