@@ -285,7 +285,7 @@ app.post('/api/storemessage', async (req, res, next) =>
 		morseMap.set('0', '-----');
 		morseMap.set('1', '.----');
 		morseMap.set('2', '..---');
-		morseMap.set('3', '...--'); // stopped here
+		morseMap.set('3', '...--');
 		morseMap.set('4', '....-');
 		morseMap.set('5', '.....');
 		morseMap.set('6', '-....');
