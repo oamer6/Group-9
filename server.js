@@ -27,7 +27,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Changed for Heroku deployment.
 const url = process.env.MONGODB_URI;
 
-const client = new MongoClient(url, { useUnifiedTopology: true }); 
+const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 
 const nodemailer = require('nodemailer');
@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
 ///////////////////////////////////////////////////
 // For Heroku deployment
-app.get('*', (req, res) => 
+app.get('*', (req, res) =>
 {
   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
 });
@@ -126,7 +126,7 @@ app.post("/register", async (req, res) => {
           html: "<h1>Welcome To Morse code translator! </h1><p>\
           <h3>Hello "+"</h3>\
           If You are requested to reset your password then click on below link<br/>\
-          <a href='http://localhost:5000/account-activation/"+token+"'>Click On This Link</a>\
+          <a href='https://mern-morse-code-translator.herokuapp.com/account-activation/"+token+"'>Click On This Link</a>\
           </p>"
       };
       transporter.sendMail(mailOptions, function (error, info) {
@@ -225,52 +225,140 @@ app.post("/updatePassword", async (req, res, next) => {
 
 app.post('/api/displaymessage', async (req, res, next) =>
 {
-	const { email } = req.body;
+	try {
+		const { userName } = req.body;
 
-	const db = client.db();
-	const results = await db.collection('Users').find({email: email}).toArray();
+		if (userName == null)
+			return res.status(400).json({ msg: "Error: Username field is empty." });
 
-	var ret = { results:results, error:error};
-	res.status(200).json(ret);
+		const db = client.db();
+		var query = { receiver: userName };
+		const results = await db.collection('Messages').find(query).toArray();
+
+		var ret = { results:results, error:error};
+		res.status(200).json(ret);
+	} catch (err) {
+		res.status(500).json({ error: err.message});
+	}
 });
 
 app.post('/api/storemessage', async (req, res, next) =>
 {
-  // incoming: login, password
-  // outgoing: id, firstName, lastName, error
+	try {
+		const { message, userName } = req.body;
+		const db = client.db();
 
-  var error = '';
+		if (message == null)
+			return res.status(400).json({ msg: "Error: Message field is empty." });
 
-  const { email, password } = req.body;
+		if (userName == null)
+			return res.status(400).json({ msg: "Error: Username field is empty." });
 
-  const db = client.db();
-  const results = await db.collection('Users').find({Login:email,Password:password}).toArray();
+		let morseMap = new Map();
+		morseMap.set(' ', 'w');
+		morseMap.set('A', '.-');
+		morseMap.set('B', '-...');
+		morseMap.set('C', '-.-.');
+		morseMap.set('D', '-..');
+		morseMap.set('E', '.');
+		morseMap.set('F', '..-.');
+		morseMap.set('G', '--.');
+		morseMap.set('H', '....');
+		morseMap.set('I', '..');
+		morseMap.set('J', '.---');
+		morseMap.set('K', '-.-');
+		morseMap.set('L', '.-..');
+		morseMap.set('M', '--');
+		morseMap.set('N', '-.');
+		morseMap.set('O', '---');
+		morseMap.set('P', '.--.');
+		morseMap.set('Q', '--.-');
+		morseMap.set('R', '.-.');
+		morseMap.set('S', '...');
+		morseMap.set('T', '-');
+		morseMap.set('U', '..-');
+		morseMap.set('V', '...-');
+		morseMap.set('W', '.--');
+		morseMap.set('X', '-..-');
+		morseMap.set('Y', '-.--');
+		morseMap.set('Z', '--..');
+		morseMap.set('0', '-----');
+		morseMap.set('1', '.----');
+		morseMap.set('2', '..---');
+		morseMap.set('3', '...--');
+		morseMap.set('4', '....-');
+		morseMap.set('5', '.....');
+		morseMap.set('6', '-....');
+		morseMap.set('7', '--...');
+		morseMap.set('8', '---..');
+		morseMap.set('9', '----.');
+		morseMap.set('&', '.-...');
+		morseMap.set('\'', '.----.');
+		morseMap.set('@', '.--.-.');
+		morseMap.set(')', '-.--.-');
+		morseMap.set('(', '-.--.');
+		morseMap.set(':', '---...');
+		morseMap.set(',', '--..--');
+		morseMap.set('=', '-...-');
+		morseMap.set('!', '-.-.--');
+		morseMap.set('.', '.-.-.-');
+		morseMap.set('-', '-....-');
+		morseMap.set('+', '.-.-.');
+		morseMap.set('"', '.-..-.');
+		morseMap.set('?', '..--..');
+		morseMap.set('/', '-..-.');
 
-  var id = -1;
-  var fn = '';
-  var ln = '';
+		var dateSent = new Date();
+		var date = dateSent.getTime();
 
-  if( results.length > 0 )
-  {
-    id = results[0].UserId;
-    fn = results[0].FirstName;
-    ln = results[0].LastName;
-  }
-  else
-  {
-    error = 'Invalid user name/password';
-  }
+		const newMessage = {sender: userName, receiver: userName, message: message, date: date};
 
-  var ret = { id:id, firstName:fn, lastName:ln, error:error};
-  res.status(200).json(ret);
+		const result = db.collection('Messages').insertOne(newMessage);
+		const savedMessage = await db.collection('Messages').save(newMessage);
+		res.json(savedMessage);
+	} catch (err) {
+		res.status(500).json({ error: err.message});
+	}
 });
+
+app.post('/api/sendmessage', async (req, res, next) =>
+{
+	try {
+		const { message, morseMessage, sender, receiver } = req.body;
+		const db = client.db();
+
+		if (message == null)
+			return res.status(400).json({ msg: "Error: Message field is empty." });
+
+		if (morseMessage == null)
+			return res.status(400).json({ msg: "Error: Morse translation field is empty." });
+
+		if (sender == null)
+			return res.status(400).json({ msg: "Error: Sender field is empty." });
+
+		if (receiver == null)
+			return res.status(400).json({ msg: "Error: Receiver field is empty." });
+
+		var dateSent = new Date();
+		var date = dateSent.getTime();
+
+		const newMessage = {sender: sender, receiver: receiver , message: message, morseMessage: morseMessage, date: date};
+
+		const result = db.collection('Messages').insertOne(newMessage);
+		const savedMessage = await db.collection('Messages').save(newMessage);
+		res.json(savedMessage);
+	} catch (err) {
+		res.status(500).json({ error: err.message});
+	}
+});
+
 
 
 //}
 
 // change dfor Heroku deployment
 //app.listen(5000); // start Node + Express server on port 5000
-app.listen(PORT, () => 
+app.listen(PORT, () =>
 {
   console.log(`Server listening on port ${PORT}.`);
 });

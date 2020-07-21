@@ -37,15 +37,19 @@ function ResetPassword()
         }
     };
     return (
-        <div id="resetDiv">
-            <form onSubmit={doReset}>
-	        <span id="inner-title">Reset password</span><br />
-            <span id="inner-title">Enter the email address that is associated with your account</span><br />
-	        <input type="text" id="email" placeholder="accountemail@email.com" ref={(c) => email = c}  /><br />
-            <input type="submit" id="resetButton" className="buttons" value = "Send reset password link" onClick={doReset} />
-            <Link to="/user">Cancel</Link>
-            </form>
-            <span id="resetResult">{message}</span>
+        <div id="resetDiv" className="container">
+            <div className="jumbotron">
+                <form onSubmit={doReset}>
+                <h5 id="inner-title">Reset password</h5><br />
+                <div className="form-group">
+                    <label for="email">Enter the email address that is associated with your account</label>
+                    <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
+                </div>
+                <input type="submit" id="resetButton" className="btn btn-warning" value = "Send reset password link" onClick={doReset} />
+                <Link to="/user">Cancel</Link>
+                </form>
+                <span id="resetResult">{message}</span>
+            </div>
         </div>
     );
 };
