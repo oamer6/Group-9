@@ -18,6 +18,14 @@ function Register()
     {
         event.preventDefault();
 
+        // Most of form validation is done by browser; we must check that passwords match
+        if (loginPassword.value !== checkPassword.value) {
+            setMessage('Passwords must match.');
+            return;
+        } else {
+            setMessage('');
+        }
+
         var js = '{"email":"'
             + email.value
             + '","password":"'
@@ -30,7 +38,8 @@ function Register()
         try
         {    
             const response = await fetch(BASE_URL + '/register',
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}}
+            );
 
             var res = JSON.parse(await response.text());
 
@@ -43,7 +52,7 @@ function Register()
                 // var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
                 // localStorage.setItem('user_data', JSON.stringify(user));
 
-                setMessage('Check your email to activate your account');
+                setMessage('Successfully registered! Check your email to activate your account.');
                 // change later to morsecode UI
                 //window.location.href = '/user';
             }
@@ -58,35 +67,36 @@ function Register()
     return(
         <div id="registerDiv" className="container">
             <div className="jumbotron">
-                <h4 id="inner-title">REGISTER YOUR ACCCOUNT</h4><br />
-                <form className="align-center" onSubmit={doRegister}>
-                <div class="form-row">
-                    <div className="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c} required></input>
-                        <div class="invalid-feedback">
-                            Email is missing.
+                <h4 id="inner-title">REGISTER YOUR ACCCOUNT</h4>
+                <hr />
+                <form className="align-center needs-validation" onSubmit={doRegister}>
+                    <div class="form-row">
+                        <div className="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c} required></input>
+                            <div class="invalid-feedback">
+                                Email is missing.
+                            </div>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label for="username">Username</label>
+                            <input type="text" className="form-control" id="username" placeholder="username" ref={(c) => username = c} required></input>
                         </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label for="username">Username</label>
-                        <input type="text" className="form-control" id="username" placeholder="username" ref={(c) => username = c}></input>
-                    </div>
-                </div>
 
-                <div className="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
-                </div>
-                <div className="form-group">
-                    <label for="checkPassword"> Retype Password</label>
-                    <input type="password" className="form-control" id="checkPassword" placeholder="retype your super secret password" ref={(c) => checkPassword = c}></input>
-                </div>
-               
-                <div className="form-group-row">
-                    <button type="submit" className="btn btn-outline-warning" onClick={doRegister}>Register my account!</button>
-                    <Link to="/user" className="text-right">Already have an account?</Link>
-                </div>
+                    <div className="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c} minLength={5} required></input>
+                    </div>
+                    <div className="form-group">
+                        <label for="checkPassword"> Retype Password</label>
+                        <input type="password" className="form-control" id="checkPassword" placeholder="retype your super secret password" ref={(c) => checkPassword = c} minLength={5} required></input>
+                    </div>
+                
+                    <div className="form-group-row">
+                        <button type="submit" className="btn btn-outline-info">Register my account!</button>
+                        <Link to="/user" id="textAfterButton" className="text-right">Already have an account?</Link>
+                    </div>
                 </form>
                 <span id="registerResult">{message}</span>
             </div>
