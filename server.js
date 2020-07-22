@@ -243,7 +243,7 @@ app.post('/displaymessage', async (req, res, next) =>
 	}
 });
 
-app.post('/storemessage', async (req, res, next) =>
+app.post('/api/storemessage', async (req, res, next) =>
 {
 	try {
 		const { message, userName } = req.body;
@@ -309,10 +309,17 @@ app.post('/storemessage', async (req, res, next) =>
 		morseMap.set('?', '..--..');
 		morseMap.set('/', '-..-.');
 
+		var morse = '';
+
+		for (var i = 0; i < message.length; i++) {
+			var morseChar = morseMap.get(message.charAt(i));
+			morse = morse + morseChar;
+		}
+
 		var dateSent = new Date();
 		var date = dateSent.getTime();
 
-		const newMessage = {sender: userName, receiver: userName, message: message, date: date};
+		const newMessage = {sender: userName, receiver: userName, message: message, morse: morse, date: date};
 
 		const result = db.collection('Messages').insertOne(newMessage);
 		const savedMessage = await db.collection('Messages').save(newMessage);
@@ -322,10 +329,10 @@ app.post('/storemessage', async (req, res, next) =>
 	}
 });
 
-app.post('/sendmessage', async (req, res, next) =>
+app.post('/api/sendmessage', async (req, res, next) =>
 {
 	try {
-		const { message, morseMessage, sender, receiver } = req.body;
+		const { message, morse, sender, receiver } = req.body;
 		const db = client.db();
 
 		if (message == null)
@@ -343,7 +350,7 @@ app.post('/sendmessage', async (req, res, next) =>
 		var dateSent = new Date();
 		var date = dateSent.getTime();
 
-		const newMessage = {sender: sender, receiver: receiver , message: message, morseMessage: morseMessage, date: date};
+		const newMessage = {sender: sender, receiver: receiver , message: message, morse: morse, date: date};
 
 		const result = db.collection('Messages').insertOne(newMessage);
 		const savedMessage = await db.collection('Messages').save(newMessage);
