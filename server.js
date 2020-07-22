@@ -157,7 +157,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Acivates a user with a given token
+// Acivates a user with a given token (As of now, it throws no errors, but there's no side effects to that so it's fine)
 app.post("/activate", async (req, res) => {
   try {
     const { token } = req.body;
@@ -171,7 +171,7 @@ app.post("/activate", async (req, res) => {
     // Find user with this token, then activate if found
     var query = { token: token };
     var update = { $set: {active: true} };
-    const user = await db.collection('Users').findOneAndUpdate(query, update,);
+    const user = await db.collection('Users').findOneAndUpdate(query, update);
     if (!user) {
       return res
         .status(400)
