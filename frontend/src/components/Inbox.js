@@ -62,7 +62,7 @@ function Inbox()
         <div id="inboxDiv" className="container">
             <div className="jumbotron">
                 <ul>{texts}</ul> 
-                <h3>{message}</h3>
+                <p id="inboxResult">{message}</p>
             </div>
         </div>
     );
