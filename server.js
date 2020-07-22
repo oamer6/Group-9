@@ -228,7 +228,7 @@ app.post("/updatePassword", async (req, res, next) => {
 
 app.post('/displaymessage', async (req, res, next) =>
 {
-	try {
+	//try {
 		const { userName } = req.body;
 		const db = client.db();
 		
@@ -243,9 +243,9 @@ app.post('/displaymessage', async (req, res, next) =>
 
 		var ret = { results:results, error:error};
 		res.status(200).json(ret);
-	} catch (err) {
-		res.status(500).json({ error: err.message});
-	}
+	//} catch (err) {
+	//	res.status(500).json({ error: err.message});
+	//}
 });
 
 app.post('/storemessage', async (req, res, next) =>
