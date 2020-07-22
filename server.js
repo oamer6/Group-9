@@ -68,6 +68,12 @@ app.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
 
+    if (!user.active) {
+      return res
+        .status(400)
+        .json({ msg: "This account has not yet been activated." });
+    }
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.json({
       token,
@@ -172,10 +178,10 @@ app.post("/activate", async (req, res) => {
     var query = { token: token };
     var update = { $set: {active: true} };
     const doc = await db.collection('Users').findOneAndUpdate(query, update);
-    if (!doc.ok) {
+    if (!doc) {
       return res
         .status(400)
-        .json({ msg: doc.lastErrorObject/*"No account with this token has been registered."*/ });
+        .json({ msg: "No account with this token has been registered." });
     }
 
     return res
