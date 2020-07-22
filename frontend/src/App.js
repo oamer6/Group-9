@@ -4,7 +4,7 @@ import LoginPage from './pages/LoginPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import MorseKeyPage from './pages/MorseKeyPage';
 import RegisterPage from './pages/RegisterPage';
-
+import UpdatePasswordPage from './pages/UpdatePasswordPage';
 
 function App() {
   return (
@@ -18,6 +18,9 @@ function App() {
         </Route>         
         <Route path="/forgot" exact>          
         <ResetPasswordPage />        
+        </Route>
+        <Route path="/change-password" exact>          
+        <UpdatePasswordPage />        
         </Route>
         <Route path="/morsekey" exact>          
         <MorseKeyPage />        
