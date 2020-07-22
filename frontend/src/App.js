@@ -27,12 +27,12 @@ function App() {
           <AccountActivationPage />
         </Route>
         <Route path="/change-password" exact>          
-        <UpdatePasswordPage />        
+          <UpdatePasswordPage />        
         </Route>
         <Route path="/morsekey" exact>          
-        <MorseKeyPage />        
+          <MorseKeyPage />        
         </Route>           
-        <Redirect to="/morsekey" />      
+          <Redirect to="/morsekey" />      
         </Switch>      
     </Router>
   );
