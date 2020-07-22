@@ -4,7 +4,6 @@ import LoginPage from './pages/LoginPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import MorseKeyPage from './pages/MorseKeyPage';
 import RegisterPage from './pages/RegisterPage';
-require("dotenv").config();
 
 
 function App() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';    // custom css stylesheet
 
-const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com/';
+const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 function Login()
 {
@@ -27,13 +27,15 @@ function Login()
             + loginPassword.value +'"}';
 
         try
-        {    
-            const response = await fetch(BASE_URL + '/login',
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-            alert(response);
-
-            var res = JSON.parse(await response.text());
+        {
+            // POST request using fetch with async/wait
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: js
+            }
+            const response = await fetch(BASE_URL + '/login', requestOptions);
+            var res = await response.json();
 
             if(res.error)
             {
@@ -67,11 +69,11 @@ function Login()
                 <hr />
                 <form className="align-center" onSubmit={doLogin}>
                     <div className="form-group">
-                        <label for="email">Email</label>
+                        <label htmlFor="email">Email</label>
                         <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
                     </div>
                     <div className="form-group">
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
                     </div>
                     <button type="submit" className="btn btn-outline-primary" onClick={doLogin}>Sign in</button>

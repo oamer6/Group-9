@@ -9,8 +9,8 @@ function MorseKey ()
             
                 <h1 className="display-4">International Morse Key</h1>
                 <hr />
-                <div class="row">
-                    <div class="col-sm-6">
+                <div className="row">
+                    <div className="col-sm-6">
                        <h4 className="text-lg font-weight-bold">Letters</h4>
                                 <h5 className="text-lg text-monospace">A .-</h5>
                                 <h5 className="text-lg text-monospace">B -...</h5>
@@ -39,7 +39,7 @@ function MorseKey ()
                                 <h5 className="text-lg text-monospace">Y -.--</h5>
                                 <h5 className="text-lg text-monospace">Z --..</h5>
                         </div>
-                        <div class="col-sm-6">
+                        <div className="col-sm-6">
                          <h4 className="text-lg font-weight-bold">Numbers</h4>
                                 <h5 className="text-lg text-monospace">0 -----</h5>
                                 <h5 className="text-lg text-monospace">1 .----</h5>
