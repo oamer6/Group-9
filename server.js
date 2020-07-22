@@ -243,7 +243,7 @@ app.post('/displaymessage', async (req, res, next) =>
 	}
 });
 
-app.post('/api/storemessage', async (req, res, next) =>
+app.post('/storemessage', async (req, res, next) =>
 {
 	try {
 		const { message, userName } = req.body;
@@ -329,7 +329,7 @@ app.post('/api/storemessage', async (req, res, next) =>
 	}
 });
 
-app.post('/api/sendmessage', async (req, res, next) =>
+app.post('/sendmessage', async (req, res, next) =>
 {
 	try {
 		const { message, morse, sender, receiver } = req.body;
