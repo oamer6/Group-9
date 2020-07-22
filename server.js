@@ -175,11 +175,11 @@ app.post("/activate", async (req, res) => {
       if (err) throw err;
       console.log("User activated");
     });
-    if (!user) {
+    /*if (!user) {
       return res
         .status(400)
         .json({ msg: "No account with this token has been registered." });
-    }
+    }*/
 
     return res
       .status(200)
