@@ -43,7 +43,7 @@ function Login()
             var res = await response.json();
             console.log(res);
             
-            if(!response.ok)
+            if(response.status !== 200)
             {
                 if (res.error) {
                     setMessage(res.error);
