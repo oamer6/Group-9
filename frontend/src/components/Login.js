@@ -57,8 +57,9 @@ function Login()
 
                 setMessage('');
                 // change to morsecode UI
-                success = true;
-                this.props.history.push('/inbox');
+                window.location.href = '/inbox';
+  
+                
             }
         }
         catch(e)
@@ -87,7 +88,7 @@ function Login()
                     <br />
                     <Link to="/signup" className="btn btn-outline-info my0">New user? Sign Up</Link>
                 </form>
-                {success ? <Redirect to='/inbox' /> : <p>{message}</p> }
+                {/* {success ? <Redirect to='/inbox' /> : <p>{message}</p> } */}
             </div>
         </div>
     );
