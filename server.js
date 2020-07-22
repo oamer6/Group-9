@@ -171,15 +171,12 @@ app.post("/activate", async (req, res) => {
     // Find user with this token, then activate if found
     var query = { token: token };
     var update = { $set: {active: true} };
-    const user = await db.collection('Users').findOneAndUpdate(query, update, function(err, res) {
-      if (err) throw err;
-      console.log("User activated");
-    });
-    /*if (!user) {
+    const user = await db.collection('Users').findOneAndUpdate(query, update,);
+    if (!user) {
       return res
         .status(400)
         .json({ msg: "No account with this token has been registered." });
-    }*/
+    }
 
     return res
       .status(200)
