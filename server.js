@@ -228,14 +228,14 @@ app.post("/updatePassword", async (req, res, next) => {
 
 app.post('/displaymessage', async (req, res, next) =>
 {
-	//try {
+	try {
 		const { userName } = req.body;
 		const db = client.db();
 		
 		if (userName == null)
 			return res.status(400).json({ msg: "Error: Username field is empty." });
 
-		
+		//res.status(200).json({ userName: userName });
 		//const query = { receiver : userName };
 		//var results = await db.collection('Messages').find(query).toArray();
 		//const results = await db.collection('Messages').find({ receiver : userName});
@@ -252,12 +252,12 @@ app.post('/displaymessage', async (req, res, next) =>
 	
 //		var ret = { results:results, error:error};
 		
-		res.status(200).json({results : ret});
+		return res.status(200).json({results : ret});
 		//res.status(200).json(ret);
 		//res.json(results);
-	//} catch (err) {
-	//	res.status(500).json({ error: err.message});
-	//}
+	} catch (err) {
+		return res.status(500).json({ error: err.message});
+	}
 });
 
 app.post('/storemessage', async (req, res, next) =>
