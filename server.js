@@ -326,7 +326,8 @@ app.post('/storemessage', async (req, res, next) =>
 
 		const result = db.collection('Messages').insertOne(newMessage);
 		const savedMessage = await db.collection('Messages').save(newMessage);
-		res.json(savedMessage);
+		res.json(newMessage);
+		//res.json(savedMessage);
 	} catch (err) {
 		res.status(500).json({ error: err.message});
 	}
