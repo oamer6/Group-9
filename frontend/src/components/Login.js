@@ -90,7 +90,7 @@ function Login()
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c} minLength={5} required></input>
                     </div>
-                    <button type="submit" className="btn btn-outline-primary" onClick={doLogin}>Sign in</button>
+                    <button type="submit" className="btn btn-outline-primary">Sign in</button>
                     <Link to="/forgot" id="textAfterButton">Forgot password?</Link>
                     <br />
                     <Link to="/signup" className="btn btn-outline-info my0">New user? Sign Up</Link>
