@@ -44,8 +44,6 @@ function Register()
             const response = await fetch(BASE_URL + '/register', requestOptions);
             var res = await response.json();
 
-            alert(JSON.stringify(res));
-
             if (response.status !== 200)
             {
                 setMessage(res.msg);
