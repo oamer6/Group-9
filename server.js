@@ -230,11 +230,12 @@ app.post('/displaymessage', async (req, res, next) =>
 {
 	try {
 		const { userName } = req.body;
-
+		const db = client.db();
+		
 		if (userName == null)
 			return res.status(400).json({ msg: "Error: Username field is empty." });
 
-		const db = client.db();
+		
 		var query = { receiver: userName };
 		const results = await db.collection('Messages').find(query).toArray();
 
