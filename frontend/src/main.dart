@@ -11,6 +11,7 @@ import 'package:morseapp/pages/send.dart';
 import 'package:morseapp/pages/key.dart';
 import 'package:morseapp/pages/menu.dart';
 import 'package:morseapp/pages/display.dart';
+import 'package:morseapp/pages/loading_inbox.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -27,5 +28,6 @@ void main() => runApp(MaterialApp(
     '/send': (context) => Send(),
     '/inbox': (context) => Inbox(),
     '/inbox_display': (context) => InboxDisplay(),
+    '/loading_inbox': (context) => LoadingInbox(),
   },
 ));
