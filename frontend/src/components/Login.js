@@ -52,7 +52,7 @@ function Login()
 
                 setMessage('');
                 // change later to morsecode UI
-                window.location.href = '/user';
+                window.location.href = '/inbox';
             }
         }
         catch(e)
