@@ -52,9 +52,11 @@ app.get('*', (req, res) =>
 
 app.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { emailEntered, password } = req.body;
     const db = client.db();
-
+	  
+    const email = email.toLowerCase();
+	  
     // validate
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
@@ -88,7 +90,8 @@ app.post("/login", async (req, res) => {
 
 app.post("/register", async (req, res) => {
   try {
-    const { email, password, verifyPassword, userName } = req.body;
+    const { emailEntered, password, verifyPassword, userName } = req.body;
+    const emailEntered = email.toLowerCase();
     const token = jwt.sign({email, userName, password}, process.env.JWT_ACC_CREATE);
     const db = client.db();
 
