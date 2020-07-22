@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -24,18 +26,58 @@ class Send extends StatefulWidget {
 
 class _SendState extends State<Send> {
 
-  void getData() {
-    //API
+  String url = 'https://mern-morse-code-translator.herokuapp.com/sendmessage';
+
+  Future<Map<String, dynamic>> getData(String message, String morse, String sender, String receiver) async {
+
+    Response response = await post(
+      url,
+      headers: <String, String> {
+        'Content-Type': 'application/json',
+
+      },
+      body: jsonEncode(<String, String>{
+        "message": message,
+        "morse": morse,
+        "sender": sender,
+        "receiver": receiver,
+      }),
+    );
+
+    data = jsonDecode(response.body);
+    return data;
+    //print("returned: " + data.toString());
+
   }
 
   @override
   void initState(){
     super.initState();
-    getData();
   }
+
+
+  String $toThisUserName = "";
+  Map<String,dynamic> data = {};
+
+  void parseResponse(Map<String, dynamic> value) {
+    print(value);
+  }
+
+
+
+  Map routedData = {};
+
+
 
   @override
   Widget build(BuildContext context) {
+
+
+    routedData = ModalRoute.of(context).settings.arguments;
+    print(routedData);
+
+
+
     SizeConfig().init(context);
     return new Scaffold(
         backgroundColor: Colors.grey[200],
@@ -58,6 +100,9 @@ class _SendState extends State<Send> {
                         child: Column(
                           children: <Widget>[
                             TextField(
+                              onChanged: (text) {
+                                $toThisUserName = text;
+                              },
                               decoration: InputDecoration(
                                   labelText: 'User Name of Recipient',
                                   labelStyle: TextStyle(
@@ -70,14 +115,19 @@ class _SendState extends State<Send> {
                           ],
                         )),
                     SizedBox(height: SizeConfig.blockSizeVertical *2),
-                    Container(
+                    GestureDetector(
+                      onTap: () {
+                      print("test");
+                      getData(routedData['message'], routedData['morse'], routedData['userName'], $toThisUserName).then(
+                              (value) => parseResponse(value)
+                      );
+                      },
+                    child: Container(
                       height: SizeConfig.blockSizeVertical *5,
                       child: Material(
                         borderRadius: BorderRadius.circular(20.0),
                         color: Colors.deepOrange,
                         elevation: 7.0,
-                        child: GestureDetector(
-                          onTap: () {},
                           child: Center(
                             child: Text(
                               'Send My Message',
