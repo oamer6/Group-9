@@ -14,7 +14,7 @@ function AccountActivation({token})
         try
         {
             // POST request using fetch with async/wait
-            var js = {token: token};
+            var js = '{"token": "' + token + '"}';
             const requestOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
