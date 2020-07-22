@@ -5,9 +5,8 @@ const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 // reference to consider: https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
 // UI for the update password link
-function UpdatePassword()
+function UpdatePassword({token})
 {
-    var token;
     var loginPassword;
     var confirmPassword;
 
@@ -24,8 +23,8 @@ function UpdatePassword()
             setMessage('');
         }
 
-        console.log(this.props.match.params.token);
-        token = this.props.match.params.token;
+        // console.log(this.props.match.params.token);
+        // token = this.props.match.params.token;
 
         var js = '{"token":"'
                 + token.value
@@ -50,7 +49,7 @@ function UpdatePassword()
             return;
         }
         // go back to login after successfully change password
-        window.location.href = '/user';
+        //window.location.href = '/user';
     };
 
     return (
@@ -70,6 +69,7 @@ function UpdatePassword()
                 <button type="submit" className="btn btn-outline-success">Update Password</button>
             </form>
             <span id="changePasswordResult">{message}</span>
+            <Link to='/user'>Click here to log in</Link>
             </div>
         </div>
     );
