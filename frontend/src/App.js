@@ -27,7 +27,7 @@ function App() {
         <Route path="/account-activation/:token">
           <AccountActivationPage />
         </Route>
-        <Route path="/change-password/:token" exact>          
+        <Route path="/change-password/:token">          
           <UpdatePasswordPage />        
         </Route>
         <Route path="/morsekey" exact>          
