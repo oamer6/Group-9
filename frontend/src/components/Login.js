@@ -18,8 +18,12 @@ function Login()
 
         if (email.value === '') {
             setMessage("Please enter your email address");
+            return;
         } else if (loginPassword.value === '') {
             setMessage("Please enter your password");
+            return;
+        } else {
+            setMessage("");
         }
 
         var js = '{"email":"'
@@ -80,11 +84,11 @@ function Login()
                 <form className="align-center" onSubmit={doLogin}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
+                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c} required></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c}></input>
+                        <input type="password" className="form-control" id="password" placeholder="your super secret password" ref={(c) => loginPassword = c} minLength={5} required></input>
                     </div>
                     <button type="submit" className="btn btn-outline-primary" onClick={doLogin}>Sign in</button>
                     <Link to="/forgot" id="textAfterButton">Forgot password?</Link>
