@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../App.css';    // custom css stylesheet
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
@@ -8,6 +8,7 @@ function Login()
 {
     var email;
     var loginPassword;
+    var success;
 
     const [message,setMessage] = useState('');
 
@@ -40,11 +41,13 @@ function Login()
             if(res.error)
             {
                 setMessage(res.error);
+                success = false;
                 return;
             }
             else if (res.status === 400)
             {
                 setMessage(res.data);
+                success = false;
                 return;
             }
             else
@@ -54,7 +57,7 @@ function Login()
 
                 setMessage('');
                 // change to morsecode UI
-                window.location.href = '/inbox';
+                success = true;
             }
         }
         catch(e)
@@ -83,7 +86,7 @@ function Login()
                     <br />
                     <Link to="/signup" className="btn btn-outline-info my0">New user? Sign Up</Link>
                 </form>
-                <p id="loginResult">{message}</p>
+                <p id= "loginResult"> {!success ? <p>{message}</p> : <Redirect to='/inbox' />}</p>
             </div>
         </div>
     );
