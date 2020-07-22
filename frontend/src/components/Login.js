@@ -40,10 +40,12 @@ function Login()
             if(res.error)
             {
                 setMessage(res.error);
+                return;
             }
             else if (res.status === 400)
             {
                 setMessage(res.data);
+                return;
             }
             else
             {
@@ -51,7 +53,7 @@ function Login()
                 localStorage.setItem('user_data', JSON.stringify(user));
 
                 setMessage('');
-                // change later to morsecode UI
+                // change to morsecode UI
                 window.location.href = '/inbox';
             }
         }
