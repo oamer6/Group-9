@@ -6,6 +6,7 @@ import MorseKeyPage from './pages/MorseKeyPage';
 import RegisterPage from './pages/RegisterPage';
 import AccountActivationPage from './pages/AccountActivationPage';
 import UpdatePasswordPage from './pages/UpdatePasswordPage';
+import InboxPage from './pages/InboxPage';
 
 function App() {
   return (
@@ -31,7 +32,10 @@ function App() {
         </Route>
         <Route path="/morsekey" exact>          
           <MorseKeyPage />        
-        </Route>           
+        </Route>    
+        <Route path="/inbox" exact>          
+          <InboxPage />        
+        </Route>        
           <Redirect to="/morsekey" />      
         </Switch>      
     </Router>
