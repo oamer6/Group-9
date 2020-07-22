@@ -43,18 +43,14 @@ function Login()
             var res = await response.json();
             console.log(res);
             
-            if(res.error)
+            if(!response.ok)
             {
-                setMessage(res.error);
+                if (res.error) {
+                    setMessage(res.error);
+                } else if (res.msg) {
+                    setMessage(res.msg);
+                }
                 success = false;
-                window.location.href = '/user';
-                return;
-            }
-            else if (res.status === 400)
-            {
-                setMessage(res.data);
-                success = false;
-                window.location.href = '/user';
                 return;
             }
             else
