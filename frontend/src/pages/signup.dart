@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'dart:convert';
+import 'package:http/http.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -24,15 +26,46 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
-  void getData() {
-    //API
+  String url = 'https://mern-morse-code-translator.herokuapp.com/register';
+
+  Future<Map<String, dynamic>> getData(String email, String password, String verifyPassword, String userName) async {
+
+    Response response = await post(
+      url,
+      headers: <String, String> {
+        'Content-Type': 'application/json',
+
+      },
+      body: jsonEncode(<String, String>{
+        "email": email,
+        "password": password,
+        "verifyPassword": verifyPassword,
+        "userName": userName,
+      }),
+    );
+
+    data = jsonDecode(response.body);
+    return data;
+
+
   }
+
+  String $givenEmail = "";
+  String $givenPassword = "";
+  String $givenVerifyPassword = "";
+  String $givenUserName = "";
+  Map<String, dynamic> data = {};
 
   @override
   void initState(){
     super.initState();
-    getData();
+
   }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +101,10 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: <Widget>[
                     TextField(
+                      onChanged:
+                      (text) {
+                        $givenEmail = text;
+                      },
                       decoration: InputDecoration(
                           labelText: 'Email',
                           labelStyle: TextStyle(
@@ -78,6 +115,9 @@ class _SignUpState extends State<SignUp> {
                               borderSide: BorderSide(color: Colors.deepOrange))),
                     ),
                     TextField(
+                      onChanged: (text) {
+                        $givenUserName = text;
+                        },
                       decoration: InputDecoration(
                           labelText: 'User Name',
                           labelStyle: TextStyle(
@@ -89,6 +129,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                     SizedBox(height: SizeConfig.blockSizeVertical *2.5),
                     TextField(
+                      onChanged: (text) {
+                        $givenPassword = text;
+                      },
                       decoration: InputDecoration(
                           labelText: 'Password',
                           labelStyle: TextStyle(
@@ -100,6 +143,9 @@ class _SignUpState extends State<SignUp> {
                       obscureText: true,
                     ),
                     TextField(
+                      onChanged: (text) {
+                        $givenVerifyPassword = text;
+                        },
                       decoration: InputDecoration(
                           labelText: 'Confirm Password',
                           labelStyle: TextStyle(
@@ -108,17 +154,33 @@ class _SignUpState extends State<SignUp> {
                               color: Colors.grey),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.deepOrange))),
+                      obscureText: true,
                     ),
                     SizedBox(height: SizeConfig.blockSizeVertical *.2),
                     SizedBox(height: SizeConfig.blockSizeVertical *2.5),
-                    Container(
-                      height: SizeConfig.blockSizeVertical *5,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.deepOrange,
-                        elevation: 7.0,
-                        child: GestureDetector(
-                          onTap: () {},
+                    GestureDetector(
+                      onTap: () {
+
+                      print($givenEmail);
+                      print($givenPassword);
+                      print($givenVerifyPassword);
+                      print($givenUserName);
+
+                      getData($givenEmail, $givenPassword, $givenVerifyPassword, $givenUserName).then((value) =>
+                     //This is what the page does when the API endpoint responds
+                    print("returned: " + data.toString())
+                      );
+                       //this is what the page will do immediately, without waiting for a response from the server
+                      //print("returned: " + data.toString());
+                      //
+                      },
+                      child: Container(
+                        height: SizeConfig.blockSizeVertical *5,
+                        child: Material(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.deepOrange,
+                          elevation: 7.0,
+
                           child: Center(
                             child: Text(
                               'Sign Me Up',

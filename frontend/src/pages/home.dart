@@ -27,14 +27,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   //URL for heroku api endpoints goes here
-  String url = 'localhostSOMETHINGOROTHER';
+  String url = 'https://mern-morse-code-translator.herokuapp.com/login';
 
-  void getData(String email, String password) async {
+
+  Future<Map<String, dynamic>> getData(String email, String password) async {
 
     Response response = await post(
       url,
       headers: <String, String> {
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json'
+//        'Content-Type': 'application/json; charset=UTF-8',
 
       },
       body: jsonEncode(<String, String>{
@@ -42,14 +44,45 @@ class _HomeState extends State<Home> {
         'password': password,
       }),
     );
-    Map data = jsonDecode(response.body);
-    print("returned: " + data.toString());
+    data = jsonDecode(response.body);
+    print(data);
+    return data;
+    //print("returned: " + data.toString());
+  }
+
+  String $givenEmail = "";
+  String $givenPassword = "";
+  Map<String, dynamic> data = {};
+
+
+
+  void parseResponse(Map<String, dynamic> value)
+  {
+
+    //print(value['userName']);
+
+
+      if (value['user'] != null) {
+        String userName = value['user']['userName'];
+        String email = value['user']['email'];
+
+        print(email);
+        print(userName);
+        if ((email != null) && (userName != null))
+          Navigator.pushNamed(context, '/menu',
+              arguments: {'userName': userName, 'email': email,});
+      }
+      else
+        {
+          //Navigator.of(context).pop()
+          print(value['msg']);
+
+        }
+
 
 
   }
 
-  String $givenEmail;
-  String $givenPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -126,11 +159,23 @@ class _HomeState extends State<Home> {
                             print($givenEmail);
                             print($givenPassword);
 
-                            getData($givenEmail, $givenPassword);
+                            //Map<String, dynamic> myTest = {"userName" : "thisUser","email":"thisEmail"};
 
+                            //await getData($givenEmail, $givenPassword);
 
-                            //post()
-                          },
+                            getData($givenEmail, $givenPassword).then((value) =>
+                            //This is what the page does when the API endpoint responds
+                              //  print("returned: " + data.toString())
+                                //print(value),
+                                //parseResponse(value);
+                                parseResponse(value)
+                                //jsonDecode(data);
+                                //Navigator.of(context).pushNamed('/menu', arguments: );
+
+                            );
+                            //this is what the page will do immediately, without waiting for a response from the server
+                            //print("returned: " + data.toString());
+                            },
                           child: Center(
                             child: Text(
                               'Login',
@@ -165,8 +210,11 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+
+
+
             // THIS ROW IS FOR DEBUG ONLY
-            SizedBox(height: SizeConfig.blockSizeVertical *2),
+            /*SizedBox(height: SizeConfig.blockSizeVertical *2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -186,6 +234,10 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            */
+
+
+
             SizedBox(height: SizeConfig.blockSizeVertical *.5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

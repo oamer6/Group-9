@@ -23,8 +23,19 @@ class Display extends StatefulWidget {
 }
 
 class _DisplayState extends State<Display>{
+
+
+  Map routedData = {};
+
+
+
   @override
   Widget build(BuildContext context) {
+
+
+    routedData = ModalRoute.of(context).settings.arguments;
+    print(routedData);
+
     SizeConfig().init(context);
     return Scaffold(
         backgroundColor: Colors.grey[200],
@@ -37,6 +48,7 @@ class _DisplayState extends State<Display>{
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // When check mark is pressed, send message
+            Navigator.pushNamed(context, '/send', arguments: routedData);
           },
           child: Icon(Icons.done),
           backgroundColor: Colors.deepOrange,
@@ -57,7 +69,7 @@ class _DisplayState extends State<Display>{
                         Container(
                           padding: EdgeInsets.fromLTRB(15.0, 35.0, 0.0, 0.0),
                           // This should either be scaled or the character allowed for message should be limited
-                          child: Text('This would be the translation of English code to Morse',
+                          child: Text(routedData['morse'],
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: SizeConfig.blockSizeVertical *2.5, fontWeight: FontWeight.bold)),
@@ -72,7 +84,7 @@ class _DisplayState extends State<Display>{
                         Container(
                           padding: EdgeInsets.fromLTRB(15.0, 270.0, 0.0, 0.0),
                           // This should either be scaled or the character allowed for message should be limited
-                          child: Text('This would be the translation of Morse code to English',
+                          child: Text(routedData['message'],
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: SizeConfig.blockSizeVertical *2.5, fontWeight: FontWeight.bold)),

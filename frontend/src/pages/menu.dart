@@ -24,8 +24,18 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
 
+
+  Map <String, dynamic> routedData = {};
+
   @override
   Widget build(BuildContext context) {
+
+
+    routedData = ModalRoute.of(context).settings.arguments;
+
+
+    print(routedData);
+
     SizeConfig().init(context);
     return new Scaffold(
         backgroundColor: Colors.grey[200],
@@ -79,7 +89,7 @@ class _MenuState extends State<Menu> {
             SizedBox(height: SizeConfig.blockSizeVertical *2),
             GestureDetector(
               onTap: () {
-              Navigator.of(context).pushNamed('/translation');
+              Navigator.of(context).pushNamed('/translation', arguments: routedData);
               },
               child: Container(
                 height: SizeConfig.blockSizeVertical *6,
@@ -104,7 +114,7 @@ class _MenuState extends State<Menu> {
             SizedBox(height: SizeConfig.blockSizeVertical *2),
             GestureDetector(
                   onTap: () {
-                  Navigator.of(context).pushNamed('/inbox');
+                  Navigator.of(context).pushNamed('/loading_inbox', arguments: routedData);
                   },
                 child: Container(
                   height: SizeConfig.blockSizeVertical *6,
