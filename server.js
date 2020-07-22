@@ -344,7 +344,7 @@ app.post('/sendmessage', async (req, res, next) =>
 		if (message == null)
 			return res.status(400).json({ msg: "Error: Message field is empty." });
 
-		if (morseMessage == null)
+		if (morse == null)
 			return res.status(400).json({ msg: "Error: Morse translation field is empty." });
 
 		if (sender == null)
