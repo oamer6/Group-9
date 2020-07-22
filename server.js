@@ -309,6 +309,8 @@ app.post('/storemessage', async (req, res, next) =>
 		morseMap.set('?', '..--..');
 		morseMap.set('/', '-..-.');
 
+		message = message.toUpperCase();
+
 		var morse = '';
 
 		for (var i = 0; i < message.length; i++) {
