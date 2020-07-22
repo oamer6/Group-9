@@ -26,9 +26,9 @@ function PageTitle()
         <nav className="navbar navbar-expand-lg navbar-warning bg-warning">
             <h1>Morse Code Translator</h1>
             <div className="align-self-end ml-auto align-self-center">
-            <Link to="/morsekey" className="btn btn-outline-alert font-weight-bold">{!isLogIn ? 'Morse Code' : 'Home'}</Link>
+            <Link to="/morsekey" className="btn btn-outline-alert font-weight-bold">{isLogIn ? 'Morse Code' : 'Home'}</Link>
             {!isLogIn ? <Link to="/inbox" className="btn btn-outline-alert font-weight-bold">Inbox</Link> : <Link to="/user" className="btn btn-outline-alert font-weight-bold">Login</Link>}
-            {!isLogIn ? <button type="button" id="logOutButton" className="btn btn-outline-primary font-weight-bold" onClick={doLogout}>Sign Out</button> : <Link to="/signup" className="btn btn-outline-alert font-weight-bold">Sign up</Link>}
+            {isLogIn ? <button type="button" id="logOutButton" className="btn btn-outline-primary font-weight-bold" onClick={doLogout}>Sign Out</button> : <Link to="/signup" className="btn btn-outline-alert font-weight-bold">Sign up</Link>}
             </div>
         </nav> 
     );
