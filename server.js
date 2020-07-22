@@ -146,13 +146,12 @@ app.post("/register", async (req, res) => {
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = {email:email, password:hashedPassword, username:userName, token: token};
+    const newUser = {email:email, password:hashedPassword, username:userName, token: token, active: false};
 
-    const result = db.collection('Users').insertOne(newUser);
-    const savedUser = await db.collection('Users').save(newUser);
+    const result = await db.collection('Users').insertOne(newUser);
+    // const savedUser = await db.collection('Users').save(newUser);
 
     const newRegisteredUser= {userName: userName, email: email};
-
     res.status(200).json(newRegisteredUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
