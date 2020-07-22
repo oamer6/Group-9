@@ -240,7 +240,7 @@ app.post('/displaymessage', async (req, res, next) =>
 		//var results = await db.collection('Messages').find(query).toArray();
 		//const results = await db.collection('Messages').find({ receiver : userName});
 		//var results = await db.collection('Messages').find({ receiver : userName });
-		const ret = await db.collection.find({ receiver : userName }).toArray()
+		const ret = await db.collection('Messages').find({ receiver : userName }).toArray()
 		//var ret;
 		//if (results.length == 0) {
  		//	ret = { results : results };
