@@ -74,7 +74,7 @@ app.post("/login", async (req, res) => {
       user: {
         id: user._id,
         email: user.email,
-	userName: user.username
+	      userName: user.username
       },
     });
   } catch (err) {
@@ -149,10 +149,42 @@ app.post("/register", async (req, res) => {
     const newUser = {email:email, password:hashedPassword, username:userName, token: token, active: false};
 
     const result = await db.collection('Users').insertOne(newUser);
-    // const savedUser = await db.collection('Users').save(newUser);
 
     const newRegisteredUser= {userName: userName, email: email};
     res.status(200).json(newRegisteredUser);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Acivates a user with a given token
+app.post("/activate", async (req, res) => {
+  try {
+    const { token } = req.body;
+    const db = client.db();
+
+    // Validate
+    if (!token) {
+      return res.status(400).json({ msg: "No token provided." });
+    }
+    
+    // Find user with this token, then activate if found
+    var query = { token: token };
+    var update = { $set: {active: true} };
+    const user = await db.collection('Users').findOneAndUpdate(query, update, function(err, res) {
+      if (err) throw err;
+      console.log("User activated");
+    });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ msg: "No account with this token has been registered." });
+    }
+
+    return res
+      .status(200)
+      .json({ email: user.email, userName: user.userName});
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

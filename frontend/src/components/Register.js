@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link} from 'react-router-dom';
 
-// const BASE_URL = 'localhost:5000';
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 function Register()
