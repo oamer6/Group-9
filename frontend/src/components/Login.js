@@ -91,7 +91,7 @@ function Login()
                     <br />
                     <Link to="/signup" className="btn btn-outline-info my0">New user? Sign Up</Link>
                 </form>
-                {/* {success ? <Redirect to='/inbox' /> : <p>{message}</p> } */}
+                <p id="loginResult">{message}</p>
             </div>
         </div>
     );
