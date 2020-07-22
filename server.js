@@ -178,7 +178,7 @@ app.post('/reset', async (req, res, next) => {
           html: "<h1>Welcome To Morse code translator! </h1><p>\
           <h3>Hello "+user.userName+"</h3>\
           If You are requested to reset your password then click on below link<br/>\
-          <a href='http://localhost:5000/change-password/"+token+"'>Click On This Link</a>\
+          <a href='https://mern-morse-code-translator.herokuapp.com/change-password/"+token+"'>Click On This Link</a>\
           </p>"
       };
       transporter.sendMail(mailOptions, function (error, info) {
@@ -325,7 +325,14 @@ app.post('/storemessage', async (req, res, next) =>
 
 		const result = db.collection('Messages').insertOne(newMessage);
 		const savedMessage = await db.collection('Messages').save(newMessage);
-		res.json(savedMessage);
+		res.json(
+     		{
+       			sender: savedMessage.sender,
+       			receiver: savedMessage.receiver,
+			message: savedMessage.message
+			morse: savedMessage.morse
+      		});
+		//res.json(savedMessage);
 	} catch (err) {
 		res.status(500).json({ error: err.message});
 	}
