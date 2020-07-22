@@ -309,12 +309,12 @@ app.post('/storemessage', async (req, res, next) =>
 		morseMap.set('?', '..--..');
 		morseMap.set('/', '-..-.');
 
-		message = message.toUpperCase();
+		var messageUp = message.toUpperCase();
 
 		var morse = '';
 
-		for (var i = 0; i < message.length; i++) {
-			var morseChar = morseMap.get(message.charAt(i));
+		for (var i = 0; i < messageUp.length; i++) {
+			var morseChar = morseMap.get(messageUp.charAt(i));
 			morse = morse + morseChar;
 		}
 
