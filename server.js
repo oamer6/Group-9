@@ -124,10 +124,11 @@ app.post("/register", async (req, res) => {
           from: 'morse.code.translate@gmail.com',
           to: req.body.email,
           subject: 'Account Activation',
-          html: "<h1>Welcome To Morse code translator! </h1><p>\
-          <h3>Hello "+"</h3>\
-          If You are requested to reset your password then click on below link<br/>\
-          <a href='https://mern-morse-code-translator.herokuapp.com/account-activation/"+token+"'>Click On This Link</a>\
+          html: "<h1>Welcome to Morse Code Translator! </h1><p>\
+          <h3>Hello "+req.body.userName+",</h3>\
+          Thank you for registering! Please click the link below to activate your account:\
+          <br />\
+          <a href='https://mern-morse-code-translator.herokuapp.com/account-activation/"+token+"'>Click on this Link</a>\
           </p>"
       };
       transporter.sendMail(mailOptions, function (error, info) {
@@ -178,7 +179,7 @@ app.post('/reset', async (req, res, next) => {
           html: "<h1>Welcome To Morse code translator! </h1><p>\
           <h3>Hello "+user.userName+"</h3>\
           If You are requested to reset your password then click on below link<br/>\
-          <a href='https://mern-morse-code-translator.herokuapp.com/change-password/"+token+"'>Click On This Link</a>\
+          <a href='http://localhost:5000/change-password/"+token+"'>Click On This Link</a>\
           </p>"
       };
       transporter.sendMail(mailOptions, function (error, info) {
@@ -325,14 +326,7 @@ app.post('/storemessage', async (req, res, next) =>
 
 		const result = db.collection('Messages').insertOne(newMessage);
 		const savedMessage = await db.collection('Messages').save(newMessage);
-		res.json(
-     		{
-       			sender: savedMessage.sender,
-       			receiver: savedMessage.receiver,
-			message: savedMessage.message
-			morse: savedMessage.morse
-      		});
-		//res.json(savedMessage);
+		res.json(savedMessage);
 	} catch (err) {
 		res.status(500).json({ error: err.message});
 	}
