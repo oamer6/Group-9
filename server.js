@@ -236,8 +236,9 @@ app.post('/displaymessage', async (req, res, next) =>
 			return res.status(400).json({ msg: "Error: Username field is empty." });
 
 		
-		const query = { receiver : userName };
-		var results = await db.collection('Messages').find(query).toArray();
+		//const query = { receiver : userName };
+		//var results = await db.collection('Messages').find(query).toArray();
+		var results = await db.collection('Messages').find({ receiver : userName }).toArray();
 
 		var ret = { results:results, error:error};
 		res.status(200).json(ret);
