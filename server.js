@@ -267,14 +267,28 @@ app.post('/displaymessage', async (req, res, next) =>
 		if (userName == null)
 			return res.status(400).json({ msg: "Error: Username field is empty." });
 
+		//res.status(200).json({ userName: userName });
+		//const query = { receiver : userName };
+		//var results = await db.collection('Messages').find(query).toArray();
+		//const results = await db.collection('Messages').find({ receiver : userName});
+		//var results = await db.collection('Messages').find({ receiver : userName });
+		const ret = await db.collection('Messages').find({ receiver : userName }).toArray()
+		//var ret;
+		//if (results.length == 0) {
+ 		//	ret = { results : results };
+		//}
+		//else
+		//{
+		//	ret = [];
+		//}
+	
+//		var ret = { results:results, error:error};
 		
-		var query = { receiver: userName };
-		const results = await db.collection('Messages').find(query).toArray();
-
-		var ret = { results:results, error:error};
-		res.status(200).json(ret);
+		return res.status(200).json({results : ret});
+		//res.status(200).json(ret);
+		//res.json(results);
 	} catch (err) {
-		res.status(500).json({ error: err.message});
+		return res.status(500).json({ error: err.message});
 	}
 });
 
