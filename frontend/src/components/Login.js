@@ -86,7 +86,7 @@ function Login()
                     <br />
                     <Link to="/signup" className="btn btn-outline-info my0">New user? Sign Up</Link>
                 </form>
-                <p id= "loginResult"> {!success ? <p>{message}</p> : <Redirect to='/inbox' />}</p>
+                {!success ? <p id="loginResult">{message}</p> : <Redirect to='/inbox' />}
             </div>
         </div>
     );
