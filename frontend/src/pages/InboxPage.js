@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
+import PageTitle from '../components/PageTitle';
 import Inbox from '../components/Inbox';
 
 const InboxPage = () =>
 {
     return(
         <div>
-            <NavBar />
+            <PageTitle />
             <Inbox />
         </div>
     );
