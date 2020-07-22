@@ -37,7 +37,8 @@ function Login()
             }
             const response = await fetch(BASE_URL + '/login', requestOptions);
             var res = await response.json();
-
+            console.log(res);
+            
             if(res.error)
             {
                 setMessage(res.error);
