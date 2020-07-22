@@ -42,12 +42,14 @@ function Login()
             {
                 setMessage(res.error);
                 success = false;
+                window.location.href = '/user';
                 return;
             }
             else if (res.status === 400)
             {
                 setMessage(res.data);
                 success = false;
+                window.location.href = '/user';
                 return;
             }
             else
