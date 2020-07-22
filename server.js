@@ -371,7 +371,7 @@ app.post('/storemessage', async (req, res, next) =>
 		var dateSent = new Date();
 		var date = dateSent.getTime();
 
-		const newMessage = {sender: userName, receiver: userName, message: message, morse: morse, date: date};
+		const newMessage = {sender: userName, receiver: "", message: message, morse: morse, date: date};
 
 		const result = db.collection('Messages').insertOne(newMessage);
 		const savedMessage = await db.collection('Messages').save(newMessage);
