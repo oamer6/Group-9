@@ -5,6 +5,7 @@ import UpdatePassword from '../components/UpdatePassword';
 
 const UpdatePasswordPage = () => 
 {
+    const { token } = useParams();
     return(
         <div>
             <PageTitle />
