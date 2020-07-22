@@ -37,17 +37,20 @@ function Login()
             }
             const response = await fetch(BASE_URL + '/login', requestOptions);
             var res = await response.json();
-
+            console.log(res);
+            
             if(res.error)
             {
                 setMessage(res.error);
                 success = false;
+                window.location.href = '/user';
                 return;
             }
             else if (res.status === 400)
             {
                 setMessage(res.data);
                 success = false;
+                window.location.href = '/user';
                 return;
             }
             else
