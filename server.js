@@ -109,7 +109,7 @@ app.post("/register", async (req, res) => {
 
     if (!userName) userName = email;
 
-    db.collection('Users').findOne({ email: req.body.email }, function (error, user) {
+    db.collection('Users').findOne({ email: email }, function (error, user) {
       var transporter = nodemailer.createTransport({
           // service: 'gmail',//smtp.gmail.com  //in place of service use host...
 
@@ -122,12 +122,11 @@ app.post("/register", async (req, res) => {
       });
       var mailOptions = {
           from: 'morse.code.translate@gmail.com',
-          to: req.body.email,
+          to: email,
           subject: 'Account Activation',
           html: "<h1>Welcome to Morse Code Translator! </h1><p>\
-          <h3>Hello "+req.body.userName+",</h3>\
-          Thank you for registering! Please click the link below to activate your account:\
-          <br />\
+          <h3>Hello "+userName+",</h3>\
+          Thank you for registering! Please click the link below to activate your account:<br />\
           <a href='https://mern-morse-code-translator.herokuapp.com/account-activation/"+token+"'>Click on this Link</a>\
           </p>"
       };
@@ -151,7 +150,10 @@ app.post("/register", async (req, res) => {
 
     const result = db.collection('Users').insertOne(newUser);
     const savedUser = await db.collection('Users').save(newUser);
-    res.json(savedUser);
+
+    const newRegisteredUser= {userName: userName, email: email};
+
+    res.status(200).json(newRegisteredUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -178,8 +180,8 @@ app.post('/reset', async (req, res, next) => {
           // text: 'That was easy!',
           html: "<h1>Welcome To Morse code translator! </h1><p>\
           <h3>Hello "+user.userName+"</h3>\
-          If You are requested to reset your password then click on below link<br/>\
-          <a href='http://localhost:5000/change-password/"+token+"'>Click On This Link</a>\
+          If you are requested to reset your password, click on the link below:<br/>\
+          <a href='https://mern-morse-code-translator.herokuapp.com/change-password/"+token+"'>Click On This Link</a>\
           </p>"
       };
       transporter.sendMail(mailOptions, function (error, info) {

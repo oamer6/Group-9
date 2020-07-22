@@ -40,11 +40,13 @@ function Register()
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: js
-            }
+            };
             const response = await fetch(BASE_URL + '/register', requestOptions);
             var res = await response.json();
 
-            if (!res.ok)
+            alert(JSON.stringify(res));
+
+            if (response.status !== 200)
             {
                 setMessage(res.msg);
             }
@@ -53,7 +55,7 @@ function Register()
                 // var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
                 // localStorage.setItem('user_data', JSON.stringify(user));
 
-                setMessage('An email has been sent to ' + JSON.parse(js).email +'. Click the link in the email to activate your account.');
+                setMessage('An email has been sent to ' + res.email +'. Click the link in the email to activate your account.');
                 // change later to morsecode UI
                 //window.location.href = '/user';
             }
