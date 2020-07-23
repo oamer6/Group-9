@@ -43,15 +43,13 @@ function Inbox()
                 alert(JSON.stringify(res));
                 /*********************************/
                 if (res.results.length > 0) {
-                     var resultText = res.results;
+                    //  var resultText = res.results;
                     for(var i = 0; i < res.results.length; i++)
                     {
                         //resultText += 'From: ' + res.results[i].sender + '\nContent: '+ res.results[i].message + '\n';
                         // copy the results array into texts with useState
-                        setTexts(texts => [...texts, res.results[i]]);
+                        texts.push(res.results[i]);
                     }
-                //     setTexts(resultText);
-                     console.log(resultText);
                 
                     /*texts = res.map(text => {
                         let sender = text.sender;
@@ -89,7 +87,9 @@ function Inbox()
                 </div>
                 <hr />
                 <button className="btn btn-outline-secondary" onClick={loadMessages}>Load Messages</button>
-                {/* <li>{texts}</li>   */}
+                {/* <ul>{texts.map((text, i) => (
+                    <li key={i}>From :{text.sender}, Content: {text.message}</li>))}
+                </ul> */}
                 <p id="inboxResult">{message}</p>
             </div>
         </div>
