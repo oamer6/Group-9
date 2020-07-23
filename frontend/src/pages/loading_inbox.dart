@@ -90,21 +90,31 @@ class _LoadingInboxState extends State<LoadingInbox>{
         print(data['results']);
         //List messages = data['results'].getRange(0,24);
         //routedData['currentMessages'] = data['results'].getRange(0,24);
-        List currentMessages = [];
+
+      List currentMessages = [];
+      /*
       for (int i = 0; i <= 24; i++)
         {
+            print(currentMessages);
+            if (i < data['results'.length])
             currentMessages.add(data['results'][i]);
         }
-
+        */
+      currentMessages.addAll(data['results']);
         //routedData.put('currentMessages', currentMessages);
 
 
+        print(currentMessages.length);
         Map <String, dynamic> continuedData = {};
         continuedData.addAll(routedData);
+
+        print("THIS IS THE CURRENT MESSAGES");
+        print(currentMessages);
         //routedData['currentMessages'] = currentMessages;
 //        routedData['currentMessages'] = currentMessages;
         //routedData['currentMessages'] = data['results'];
 //      Navigator.pushReplacementNamed(context, '/inbox', arguments: {'currentMessages' : currentMessages});
+//      Navigator.pushReplacementNamed(context, '/inbox', arguments: {'continuedData' : continuedData, 'currentMessages' : currentMessages});
       Navigator.pushReplacementNamed(context, '/inbox', arguments: {'continuedData' : continuedData, 'currentMessages' : currentMessages});
 
       return;

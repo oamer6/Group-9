@@ -59,12 +59,14 @@ class _HomeState extends State<Home> {
   void parseResponse(Map<String, dynamic> value)
   {
 
-    //print(value['userName']);
+    print(value['userName']);
 
 
-      if (value['user'] != null) {
-        String userName = value['user']['userName'];
-        String email = value['user']['email'];
+      if (value['userName'] != null) {
+        //String userName = value['user']['userName'];
+        //String email = value['user']['email'];
+        String userName = value['userName'];
+        String email = value['email'];
 
         print(email);
         print(userName);
