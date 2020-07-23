@@ -192,8 +192,14 @@ app.post("/activate", async (req, res) => {
 });
 
 app.post('/reset', async (req, res, next) => {
+  const { email } = req.body;
   const db = client.db();
-  db.collection('Users').findOne({ email: req.body.email }, function (error, user) {
+
+  if (email == null || email === '') {
+    return res.status(400).json({ msg: "No email specified." });
+  }
+
+  db.collection('Users').findOne({ email: email }, function (error, user) {
       var transporter = nodemailer.createTransport({
           // service: 'gmail',//smtp.gmail.com  //in place of service use host...
 
@@ -210,9 +216,8 @@ app.post('/reset', async (req, res, next) => {
           to: req.body.email,
           subject: 'Password Reset',
           // text: 'That was easy!',
-          html: "<h1>Welcome To Morse code translator! </h1><p>\
-          <h3>Hello "+user.userName+"</h3>\
-          If you are requested to reset your password, click on the link below:<br/>\
+          html: "<h3>Hello "+user.userName+",</h3>\
+          If you have requested to reset your password, click on the link below:<br/>\
           <a href='https://mern-morse-code-translator.herokuapp.com/change-password/"+token+"'>Click On This Link</a>\
           </p>"
       };

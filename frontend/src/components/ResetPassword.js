@@ -12,22 +12,26 @@ function ResetPassword()
     const doReset = async event =>
     {
 
-        var js = '{"email":"' + email.value + '"}"';
+        
         try
         {
-            const response = await fetch(BASE_URL + '/reset',
-            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            // POST request using fetch with async/wait
+            var js = '{"email":"' + email.value + '"}"';
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: js
+            }
+            const response = await fetch(BASE_URL + '/reset', requestOptions);
+            var res = await response.json();
 
-            var res = JSON.parse(await response.text());
-
-            if(res.error)
+            if(response.status !== 200)
             {
-                setMessage('There is no account associated with this email');
+                setMessage('There is no account associated with this email.');
             }
             else
             {
-                setMessage('Check your email');
-                window.location.href = '/user';
+                setMessage('A password reset link has been sent to ' + email.value);
             }
         }
         catch (e)
@@ -40,13 +44,13 @@ function ResetPassword()
         <div id="resetDiv" className="container">
             <div className="jumbotron">
                 <form onSubmit={doReset}>
-                <h5 id="inner-title">Reset password</h5><br />
-                <div className="form-group">
-                    <label for="email">Enter the email address that is associated with your account</label>
-                    <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
-                </div>
-                <input type="submit" id="resetButton" className="btn btn-warning" value = "Send reset password link" onClick={doReset} />
-                <Link to="/user">Cancel</Link>
+                    <h5 id="inner-title">Reset password</h5><br />
+                    <div className="form-group">
+                        <label for="email">Enter the email address that is associated with your account</label>
+                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
+                    </div>
+                    <input type="submit" id="resetButton" className="btn btn-outline-primary" value="Send reset password link"/>
+                    <Link id="textAfterButton" to="/user">Cancel</Link>
                 </form>
                 <span id="resetResult">{message}</span>
             </div>
