@@ -184,7 +184,7 @@ app.post("/activate", async (req, res) => {
 
     return res
       .status(200)
-      .json({ email: user.email, userName: user.userName});
+      .json({ email: doc.email, userName: doc.userName});
 
   } catch (err) {
     res.status(500).json({ error: err.message });
