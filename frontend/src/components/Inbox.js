@@ -10,16 +10,15 @@ function Inbox()
     const [texts, setTexts] = useState('');
     //var texts;
     var userObj = JSON.parse(localStorage.getItem('user_data'));
-    var username = userObj.username;
     const [message,setMessage] = useState('');
-    var resultText;
+
     const loadMessages = async event =>
     {
         event.preventDefault();
         try
         {
             // POST request using fetch with async/wait
-            var js = '{' + '"userName":"' + '' + '"}';
+            var js = `{"userName":"${userObj.username}"}`;
             const requestOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -43,9 +42,10 @@ function Inbox()
                 alert(JSON.stringify(res));
                 /*********************************/
                 if (res.results.length > 0) {
+                    var resultText = '';
                     for(var i = 0; i < res.results.length; i++)
                     {
-                        resultText += 'From:' + res.results[i].sender + ' , Content: '+ res.results[i].message + '\n';
+                        resultText += 'From: ' + res.results[i].sender + '\nContent: '+ res.results[i].message + '\n';
                     }
                     setTexts(resultText);
                     console.log(texts);
@@ -78,23 +78,23 @@ function Inbox()
         } 
     };
 
-        return(
-            <div id="inboxDiv" className="container">
-                <script>getMessages</script>
-                <div className="jumbotron">
-                    <div className="navbar" id="inboxNavDiv">
-                        <h2 id="inboxHeader">Inbox</h2>
-                        <div className="align-self-end ml-auto">
-                            <button className="btn btn-outline-primary">+ New Message</button>
-                        </div>
+    return(
+        <div id="inboxDiv" className="container">
+            <script>getMessages</script>
+            <div className="jumbotron">
+                <div className="navbar" id="inboxNavDiv">
+                    <h2 id="inboxHeader">Inbox</h2>
+                    <div className="align-self-end ml-auto">
+                        <button className="btn btn-outline-primary">+ New Message</button>
                     </div>
-                    <hr />
-                    <button className="btn btn-outline-secondary" onClick={loadMessages}>Load Messages</button>
-                    <p>{texts}</p>  
-                    <p id="inboxResult">{message}</p>
                 </div>
+                <hr />
+                <button className="btn btn-outline-secondary" onClick={loadMessages}>Load Messages</button>
+                <p onLoad={loadMessages}>{texts}</p>  
+                <p id="inboxResult">{message}</p>
             </div>
-        );
+        </div>
+    );
     
 };
 
