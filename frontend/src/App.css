@@ -18,3 +18,12 @@ hr.hr-style2 {
 #loginResult, #registerResult {
   color: red;
 }
+
+#inboxNavDiv {
+  margin-top: -34px;
+  margin-bottom: -18px;
+}
+
+#inboxHeader {
+  margin-bottom: -12px;
+}

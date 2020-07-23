@@ -5,27 +5,18 @@ const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 function Inbox()
 {
-    var _ud = localStorage.getItem('user_data');    
-    var texts;
-    var ud = JSON.parse(_ud);  
-    var username = ud.userName;
+    const [texts, setTexts] = useState('');
+    var userObj = JSON.parse(localStorage.getItem('user_data'));
+    var username = userObj.username;
     const [message,setMessage] = useState('');
 
-    const checkMessage = async event =>
+    const loadMessages = async event =>
     {
         event.preventDefault();
-        if(_ud === null)
-        {
-            setMessage('Please log in');
-            return;
-        }
- 
-
-        var js = '{' + '"userName":"' + username.value + '"}';
-
         try
         {
             // POST request using fetch with async/wait
+            var js = '{' + '"userName":"' + '' + '"}';
             const requestOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -33,23 +24,34 @@ function Inbox()
             };
             const response = await fetch(BASE_URL + '/displaymessage', requestOptions);
             var res = await response.json();
-            if(res.status === 400)
-                setMessage('You must sign in to view your inbox');
-            else if(res.status === 500)
-                setMessage(res.error);
+            console.log(res);
+
+            if (response.status !== 200)
+            {
+                if (res.error) {
+                    setMessage(res.error);
+                } else if (res.msg) {
+                    setMessage(res.msg);
+                }
+            }
             else
             {
-                if(res.length > 0)
-                {
-                    texts = res.map(text => {
+                /* DEBUG *************************/
+                alert(JSON.stringify(res));
+                /*********************************/
+                if (res.results.length > 0) {
+                    setTexts(
+                        // iterate thru results here
+                    );
+                    /*texts = res.map(text => {
                         let sender = text.sender;
                         let content = text.message;
                         let date = text.date;
                         return <span>From: {sender} at {date}. Content: {content}</span>
-                    });
+                    });*/
+                } else {
+                    setMessage('You have no messages.');
                 }
-                else
-                    setMessage('You have no message at the moment.');
             }
         }
         catch(e)
@@ -58,9 +60,19 @@ function Inbox()
             return;
         } 
     };
+
     return(
         <div id="inboxDiv" className="container">
+            <script>getMessages</script>
             <div className="jumbotron">
+                <div className="navbar" id="inboxNavDiv">
+                    <h2 id="inboxHeader">Inbox</h2>
+                    <div className="align-self-end ml-auto">
+                        <button className="btn btn-outline-primary">+ New Message</button>
+                    </div>
+                </div>
+                <hr />
+                <button className="btn btn-outline-secondary" onClick={loadMessages}>Load Messages</button>
                 <ul>{texts}</ul> 
                 <p id="inboxResult">{message}</p>
             </div>

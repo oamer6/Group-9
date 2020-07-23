@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../App.css';    // custom css stylesheet
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 function Login()
 {
-    // If user happens to arrive here and is already logged in, redirect them to inbox
-    var ud = localStorage.getItem('user_data');
-    if (ud) {
-        window.location.href = '/inbox';
-    }
-
     var email;
     var loginPassword;
-    var success;
+    //var success;
 
     const [message,setMessage] = useState('');
 
@@ -56,7 +50,7 @@ function Login()
                 } else if (res.msg) {
                     setMessage(res.msg);
                 }
-                success = false;
+                //success = false;
                 return;
             }
             else

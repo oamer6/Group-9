@@ -4,6 +4,12 @@ import Inbox from '../components/Inbox';
 
 const InboxPage = () =>
 {
+    // Make sure user is logged in
+    var ud = localStorage.getItem('user_data');
+    if (!ud) {
+        window.location.href = '/user';
+    }
+
     return(
         <div>
             <PageTitle />
