@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
@@ -7,7 +8,7 @@ const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 function Inbox()
 {
-    const [texts, setTexts] = useState('');
+    const [texts, setTexts] = useState([]);
     //var texts;
     var userObj = JSON.parse(localStorage.getItem('user_data'));
     const [message,setMessage] = useState('');
@@ -38,19 +39,18 @@ function Inbox()
             }
             else
             {
+                /* DEBUG *************************/
+                alert(JSON.stringify(res));
+                /*********************************/
                 if (res.results.length > 0) {
-                    var resultText = '';
+                    //  var resultText = res.results;
                     for(var i = 0; i < res.results.length; i++)
                     {
-                        resultText += 'From: ' + res.results[i].sender + '\nContent: '+ res.results[i].message + '\n';
+                        //resultText += 'From: ' + res.results[i].sender + '\nContent: '+ res.results[i].message + '\n';
+                        // copy the results array into texts with useState
+                        texts.push(res.results[i]);
                     }
-                    setTexts(resultText);
-                    console.log(texts);
-                    // setTexts(
                 
-                        // // iterate thru results here
-                        // })
-                    // );
                     /*texts = res.map(text => {
                         let sender = text.sender;
                         let content = text.message;
@@ -61,7 +61,7 @@ function Inbox()
                     //     return <li key={i}>From :{text.sender}, Content: {text.message}</li>
                     // })
  
-                   // console.log(texts);
+                    console.log(texts);
                 } 
                 else {
                     setMessage('You have no messages.');
@@ -82,18 +82,19 @@ function Inbox()
                 <div className="navbar" id="inboxNavDiv">
                     <h2 id="inboxHeader">Inbox</h2>
                     <div className="align-self-end ml-auto">
-                        <Link to="/newmessage" id="newMessageButton">
-                            <button className="btn btn-outline-primary">+ New Message</button>
-                        </Link>
+                        <button className="btn btn-outline-primary">+ New Message</button>
                     </div>
                 </div>
                 <hr />
                 <button className="btn btn-outline-secondary" onClick={loadMessages}>Load Messages</button>
-                <p onLoad={loadMessages}>{texts}</p>  
+                {/* <ul>{texts.map((text, i) => (
+                    <li key={i}>From :{text.sender}, Content: {text.message}</li>))}
+                </ul> */}
                 <p id="inboxResult">{message}</p>
             </div>
         </div>
     );
+    
     
 };
 
