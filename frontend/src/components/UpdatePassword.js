@@ -35,8 +35,7 @@ function UpdatePassword({token})
         try {
             const response = await fetch(BASE_URL + '/updatePassword',
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-            var res = JSON.parse(await response.text());
+            var res = await response.json();
 
             if(!res.ok)
                 setMessage(res.error);

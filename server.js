@@ -228,7 +228,7 @@ app.post('/reset', async (req, res, next) => {
               console.log('Email sent: ' + info.response);
               console.log(user._id);
               console.log(token);
-              var result = db.collection('Users').updateOne({ _id: user._id }, {$set: {token:token}});
+              var result = db.collection('Users').updateOne({ email: email }, {$set: {token:token}});
 
              res.status(200).json({
               success: true

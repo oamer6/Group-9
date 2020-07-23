@@ -11,12 +11,12 @@ function ResetPassword()
 
     const doReset = async event =>
     {
-
-        
+        event.preventDefault();
+        setMessage('');
         try
         {
             // POST request using fetch with async/wait
-            var js = '{"email":"' + email.value + '"}"';
+            var js = '{"email":"' + email.value + '"}';
             const requestOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -24,6 +24,7 @@ function ResetPassword()
             }
             const response = await fetch(BASE_URL + '/reset', requestOptions);
             var res = await response.json();
+            console.log(res);
 
             if(response.status !== 200)
             {
@@ -46,8 +47,8 @@ function ResetPassword()
                 <form onSubmit={doReset}>
                     <h5 id="inner-title">Reset password</h5><br />
                     <div className="form-group">
-                        <label for="email">Enter the email address that is associated with your account</label>
-                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c}></input>
+                        <label htmlFor="email">Enter the email address that is associated with your account</label>
+                        <input type="email" className="form-control" id="email" placeholder="name@email.com" ref={(c) => email = c} required></input>
                     </div>
                     <input type="submit" id="resetButton" className="btn btn-outline-primary" value="Send reset password link"/>
                     <Link id="textAfterButton" to="/user">Cancel</Link>
