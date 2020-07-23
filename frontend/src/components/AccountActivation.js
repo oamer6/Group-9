@@ -25,7 +25,11 @@ function AccountActivation({token})
 
             if (response.status !== 200)
             {
-                setMessage(res.msg);
+                if (res.error) {
+                    setMessage(res.error);
+                } else if (res.msg) {
+                    setMessage(res.msg);
+                }
             }
             else
             {
@@ -45,7 +49,7 @@ function AccountActivation({token})
         <div id="accActivationDiv" className="container jumbotron">
             <h2 id="accActivationHeader">Activate Account</h2>
             <hr />
-            <button className="btn btn-outlined-success" onClick={doActivate}>Click me to activate account!</button>
+            <button className="btn btn-outline-success" onClick={doActivate}>Click me to activate account!</button>
             <Link to='/user' id="textAfterButton">{message}</Link>
         </div>
     );
