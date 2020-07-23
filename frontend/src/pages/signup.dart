@@ -63,6 +63,24 @@ class _SignUpState extends State<SignUp> {
   }
 
 
+  void parseResponse(Map<String, dynamic> value)
+  {
+
+
+    if(null != value['msg']) {
+      print(value['msg']);
+      return;
+    }
+
+
+    print(value);
+    Navigator.of(context).pop();
+
+
+
+
+
+  }
 
 
 
@@ -168,7 +186,8 @@ class _SignUpState extends State<SignUp> {
 
                       getData($givenEmail, $givenPassword, $givenVerifyPassword, $givenUserName).then((value) =>
                      //This is what the page does when the API endpoint responds
-                    print("returned: " + data.toString())
+                      parseResponse(value)
+                        //print("returned: " + data.toString())
                       );
                        //this is what the page will do immediately, without waiting for a response from the server
                       //print("returned: " + data.toString());

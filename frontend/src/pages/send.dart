@@ -61,6 +61,7 @@ class _SendState extends State<Send> {
 
   void parseResponse(Map<String, dynamic> value) {
     print(value);
+    Navigator.of(context).pop();
   }
 
 
@@ -118,9 +119,10 @@ class _SendState extends State<Send> {
                     GestureDetector(
                       onTap: () {
                       print("test");
-                      getData(routedData['message'], routedData['morse'], routedData['userName'], $toThisUserName).then(
-                              (value) => parseResponse(value)
-                      );
+                      if("" != $toThisUserName)
+                        getData(routedData['message'], routedData['morse'], routedData['userName'], $toThisUserName).then(
+                                (value) => parseResponse(value)
+                        );
                       },
                     child: Container(
                       height: SizeConfig.blockSizeVertical *5,

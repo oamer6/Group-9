@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+//import 'dart:convert';
+
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -53,14 +56,14 @@ class _ForgotState extends State<Forgot> {
                     child: Text('Forgot',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: SizeConfig.blockSizeVertical *10, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *8, fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(15.0, 150.0, 0.0, 0.0),
-                    child: Text('Password',
+                    child: Text('Password?',
                         style: TextStyle(
                             color: Colors.deepOrange,
-                            fontSize: SizeConfig.blockSizeVertical *10, fontWeight: FontWeight.bold)),
+                            fontSize: SizeConfig.blockSizeVertical *8, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -93,6 +96,8 @@ class _ForgotState extends State<Forgot> {
                       GestureDetector(
                           onTap: () {
                             print($givenEmail);
+                            Navigator.of(context).pop();
+
                           },
                           child: Center(
                             child: Text(
