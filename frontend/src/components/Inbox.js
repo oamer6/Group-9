@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
 
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
@@ -8,88 +9,110 @@ const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
 function Inbox()
 {
-    const [texts, setTexts] = useState([]);
-    //var texts;
     var userObj = JSON.parse(localStorage.getItem('user_data'));
     const [message,setMessage] = useState('');
+    const [messagesHTMLString, setHTMLString] = useState('');   // for return
 
-    const loadMessages = async event =>
-    {
-        event.preventDefault();
-        try
+    // Runs on page load (render)
+    useEffect( () => {
+        // First, define function we want to run
+        async function loadMessages() 
         {
-            // POST request using fetch with async/wait
-            var js = `{"userName":"${userObj.username}"}`;
-            const requestOptions = {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: js
-            };
-            const response = await fetch(BASE_URL + '/displaymessage', requestOptions);
-            var res = await response.json();
-            console.log(res);
+            try
+            {
+                // POST request using fetch with async/wait
+                var js = `{"userName":"${userObj.username}"}`;
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: js
+                };
+                const response = await fetch(BASE_URL + '/displaymessage', requestOptions);
+                var res = await response.json();
+                console.log(res);
 
-            if (response.status !== 200)
-            {
-                if (res.error) {
-                    setMessage(res.error);
-                } else if (res.msg) {
-                    setMessage(res.msg);
-                }
-            }
-            else
-            {
-                /* DEBUG *************************/
-                alert(JSON.stringify(res));
-                /*********************************/
-                if (res.results.length > 0) {
-                    //  var resultText = res.results;
-                    for(var i = 0; i < res.results.length; i++)
-                    {
-                        //resultText += 'From: ' + res.results[i].sender + '\nContent: '+ res.results[i].message + '\n';
-                        // copy the results array into texts with useState
-                        texts.push(res.results[i]);
+                if (response.status !== 200)
+                {
+                    if (res.error) {
+                        setMessage(res.error);
+                    } else if (res.msg) {
+                        setMessage(res.msg);
                     }
-                
-                    /*texts = res.map(text => {
-                        let sender = text.sender;
-                        let content = text.message;
-                        let date = text.date;
-                        return <span>From: {sender} at {date}. Content: {content}</span>
-                    });*/
-                    // texts = res.results.map((text, i) => {
-                    //     return <li key={i}>From :{text.sender}, Content: {text.message}</li>
-                    // })
- 
-                    console.log(texts);
-                } 
-                else {
-                    setMessage('You have no messages.');
+                }
+                else
+                {
+                    if (res.results.length > 0) {
+
+                        // Generate inbox messages
+                        var thisHTMLString = '';
+                        for (var i=0; i<res.results.length; i++) {
+                            thisHTMLString += '\
+                                <div class="container myCon0">\
+                                    <h6 class="messageHeader"><b>From: </b><i>'+ res.results[i].sender +'</i></h6>\
+                                    <p class="messageContentMorse"><b>Message: </b>'+ res.results[i].morse +'</p>\
+                                    <p class="messageContentEnglish"><b>Translation: </b>'+ res.results[i].message +'</p>\
+                                </div>\
+                            ';
+                        }
+                        setHTMLString(thisHTMLString);
+                    } 
+                    else {
+                        setMessage('You have no messages.');
+                    }
                 }
             }
-        }
-        catch(e)
-        {
-            alert(e.toString());
-            return;
-        } 
-    };
+            catch(e)
+            {
+                alert(e.toString());
+                return;
+            } 
+        };
+
+        // Call our newly defined function
+        loadMessages();
+
+    }, []);
+
+
+    var testHTML = (
+        <div id="inboxMessages">
+            <div className="container myCon0">
+                <h6 className="messageHeader"><b>From: </b><i>someusername</i></h6>
+                <p className="messageContentMorse"><b>Message: </b>--. . -. --. . -.- ..- - .-. -..</p>
+                <p className="messageContentEnglish"><b>Translation: </b>This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.</p>
+            </div>
+            <div className="container myCon0">
+                <h6 className="messageHeader"><b>From: </b><i>someusername</i></h6>
+                <p className="messageContentMorse"><b>Message: </b>--. . -. --. . -.- ..- - .-. -..</p>
+                <p className="messageContentEnglish"><b>Translation: </b>This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.</p>
+            </div>
+            <div className="container myCon0">
+                <h6 className="messageHeader"><b>From: </b><i>someusername</i></h6>
+                <p className="messageContentMorse"><b>Message: </b>--. . -. --. . -.- ..- - .-. -..</p>
+                <p className="messageContentEnglish"><b>Translation: </b>This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.</p>
+            </div>
+            <div className="container myCon0">
+                <h6 className="messageHeader"><b>From: </b><i>someusername</i></h6>
+                <p className="messageContentMorse"><b>Message: </b>--. . -. --. . -.- ..- - .-. -..</p>
+                <p className="messageContentEnglish"><b>Translation: </b>This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.This doesn't translate to this whatsoever.</p>
+            </div>
+        </div>
+    );
+
 
     return(
         <div id="inboxDiv" className="container">
-            <script>getMessages</script>
             <div className="jumbotron">
                 <div className="navbar" id="inboxNavDiv">
                     <h2 id="inboxHeader">Inbox</h2>
                     <div className="align-self-end ml-auto">
-                        <button className="btn btn-outline-primary">+ New Message</button>
+                        <Link to="/newmessage" id="newMessageButton">
+                            <button className="btn btn-outline-primary">+ New Message</button>
+                        </Link>
                     </div>
                 </div>
                 <hr />
-                <button className="btn btn-outline-secondary" onClick={loadMessages}>Load Messages</button>
-                {/* <ul>{texts.map((text, i) => (
-                    <li key={i}>From :{text.sender}, Content: {text.message}</li>))}
-                </ul> */}
+                <div>{ReactHtmlParser(messagesHTMLString)}</div>
                 <p id="inboxResult">{message}</p>
             </div>
         </div>

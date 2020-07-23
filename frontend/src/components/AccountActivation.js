@@ -43,8 +43,9 @@ function AccountActivation({token})
 
     return(
         <div id="accActivationDiv" className="container jumbotron">
-            <h3 id="urlToken">token = {token}</h3><br />
-            <button onClick={doActivate}>Click me to activate account!</button>
+            <h2 id="accActivationHeader">Activate Account</h2>
+            <hr />
+            <button className="btn btn-outlined-success" onClick={doActivate}>Click me to activate account!</button>
             <Link to='/user' id="textAfterButton">{message}</Link>
         </div>
     );
