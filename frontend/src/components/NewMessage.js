@@ -26,7 +26,7 @@ function NewMessage()
         try
         {
             // POST request using fetch with async/wait
-            var js = `{"userName":"${userObj.username.value}","message":"${msgEnglish.value}"}`;
+            var js = `{"userName":"${userObj.username}","message":"${msgEnglish.value}"}`;
             const requestOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -74,8 +74,8 @@ function NewMessage()
             var js = `{
                 "message":"${msgEnglish.value}",
                 "morse":"${msgMorse}",
-                "sender":"${userObj.username.value}",
-                "receiver":"${recipient}"
+                "sender":"${userObj.username}",
+                "receiver":"${recipient.value}"
             }`;
             const requestOptions = {
                 method: 'POST',
