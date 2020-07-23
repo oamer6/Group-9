@@ -72,7 +72,7 @@ class _InboxState extends State<Inbox>{
         body: Center(
           child: ListView.builder(
             itemBuilder: _itemBuilder,
-            itemCount: 25,
+            itemCount: routedData['currentMessages'].length,
           ),
         ),
       );
