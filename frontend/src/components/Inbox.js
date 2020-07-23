@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link} from 'react-router-dom';
-import { text } from 'express';
+
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
@@ -48,7 +48,7 @@ function Inbox()
                     {
                         //resultText += 'From: ' + res.results[i].sender + '\nContent: '+ res.results[i].message + '\n';
                         // copy the results array into texts with useState
-                        setTexts(texts => [...text, res.results[i]]);
+                        setTexts(texts => [...texts, res.results[i]]);
                     }
                 //     setTexts(resultText);
                      console.log(resultText);
