@@ -27,7 +27,7 @@ function UpdatePassword({token})
         // token = this.props.match.params.token;
 
         var js = '{"token":"'
-                + token.value
+                + token
                 + '","newPass":"'
                 + loginPassword.value 
                 + '"}';
@@ -37,7 +37,7 @@ function UpdatePassword({token})
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = await response.json();
 
-            if(!res.ok)
+            if(response.status !== 200)
                 setMessage(res.error);
             else
                 setMessage('Your password has successfully changed!');
