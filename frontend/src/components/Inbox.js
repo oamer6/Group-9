@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const BASE_URL = 'https://mern-morse-code-translator.herokuapp.com';
 
@@ -68,7 +68,9 @@ function Inbox()
                 <div className="navbar" id="inboxNavDiv">
                     <h2 id="inboxHeader">Inbox</h2>
                     <div className="align-self-end ml-auto">
-                        <button className="btn btn-outline-primary">+ New Message</button>
+                        <Link to="/newmessage" id="newMessageButton">
+                            <button className="btn btn-outline-primary">+ New Message</button>
+                        </Link>
                     </div>
                 </div>
                 <hr />

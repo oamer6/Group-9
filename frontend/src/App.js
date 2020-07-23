@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import AccountActivationPage from './pages/AccountActivationPage';
 import UpdatePasswordPage from './pages/UpdatePasswordPage';
 import InboxPage from './pages/InboxPage';
+import NewMessagePage from './pages/NewMessagePage';
 
 function App() {
   return (
@@ -27,17 +28,20 @@ function App() {
         <Route path="/account-activation/:token">
           <AccountActivationPage />
         </Route>
-        <Route path="/change-password/:token">          
-          <UpdatePasswordPage />        
+        <Route path="/change-password/:token">
+          <UpdatePasswordPage />
         </Route>
-        <Route path="/morsekey" exact>          
-          <MorseKeyPage />        
-        </Route>    
-        <Route path="/inbox" exact>          
-          <InboxPage />        
-        </Route>        
-          <Redirect to="/morsekey" />      
-        </Switch>      
+        <Route path="/morsekey" exact>
+          <MorseKeyPage />
+        </Route>
+        <Route path="/inbox" exact>
+          <InboxPage />
+        </Route>
+        <Route path="/newmessage" exact>
+          <NewMessagePage />
+        </Route>
+          <Redirect to="/morsekey" />
+        </Switch>
     </Router>
   );
 }

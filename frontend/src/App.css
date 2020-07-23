@@ -15,15 +15,19 @@ hr.hr-style2 {
   margin-left: 10px;
 }
 
-#loginResult, #registerResult {
+#loginResult, #registerResult, .functionResult {
   color: red;
 }
 
-#inboxNavDiv {
+#inboxNavDiv, #newMsgNavDiv {
   margin-top: -34px;
   margin-bottom: -18px;
 }
 
-#inboxHeader {
+#inboxHeader, #newMsgHeader {
   margin-bottom: -12px;
+}
+
+#englishMsgInput, #morseMsgInput, #recipientInput {
+  margin-bottom: 6px;
 }
